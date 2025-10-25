@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.API", "AutoPartsShop.API\AutoPartsShop.API.csproj", "{BAAD720D-A714-488A-BA06-D097E2289E4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Core", "AutoPartsShop.Core\AutoPartsShop.Core.csproj", "{62F11687-2E32-4E3B-8254-8D10BA4EEF60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Infrastructure", "AutoPartsShop.Infrastructure\AutoPartsShop.Infrastructure.csproj", "{DFE54CB2-0013-46A2-A31B-3D4B10540C69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Domain", "AutoPartsShop.Domain\AutoPartsShop.Domain.csproj", "{630DA4CA-5E88-47D0-897D-62248331B118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Identity", "AutoPartsShop.Identity\AutoPartsShop.Identity.csproj", "{014AD504-1257-4230-8C84-DE3B7E287510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop", "AutoPartsShop\AutoPartsShop.csproj", "{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAAD720D-A714-488A-BA06-D097E2289E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAAD720D-A714-488A-BA06-D097E2289E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAAD720D-A714-488A-BA06-D097E2289E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAAD720D-A714-488A-BA06-D097E2289E4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62F11687-2E32-4E3B-8254-8D10BA4EEF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62F11687-2E32-4E3B-8254-8D10BA4EEF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62F11687-2E32-4E3B-8254-8D10BA4EEF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62F11687-2E32-4E3B-8254-8D10BA4EEF60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE54CB2-0013-46A2-A31B-3D4B10540C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE54CB2-0013-46A2-A31B-3D4B10540C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE54CB2-0013-46A2-A31B-3D4B10540C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE54CB2-0013-46A2-A31B-3D4B10540C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{630DA4CA-5E88-47D0-897D-62248331B118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{630DA4CA-5E88-47D0-897D-62248331B118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{630DA4CA-5E88-47D0-897D-62248331B118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{630DA4CA-5E88-47D0-897D-62248331B118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{014AD504-1257-4230-8C84-DE3B7E287510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{014AD504-1257-4230-8C84-DE3B7E287510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{014AD504-1257-4230-8C84-DE3B7E287510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{014AD504-1257-4230-8C84-DE3B7E287510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8ECE2DAF-B282-4901-82D0-57E2B21A0571}
+	EndGlobalSection
+EndGlobal

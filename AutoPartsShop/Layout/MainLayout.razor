@@ -1,0 +1,119 @@
+﻿@inherits LayoutComponentBase
+<AntDesign.Layout Class="layout">
+    <AntDesign.Header Style="display: flex; align-items: center;">
+        <div class="logo" Style="color: white; font-size: 20px; margin-right: 20px;">汽修配件商城</div>
+        <Menu Mode="horizontal" Theme="dark" Style="flex: 1; min-width: 0;">
+            <Menu.Item Key="1">
+                <NavLink href="/" Match="NavLinkMatch.All">首页</NavLink>
+            </Menu.Item>
+            <Menu.Item Key="2">
+                <NavLink href="/products">商品中心</NavLink>
+            </Menu.Item>
+            <Menu.Item Key="3">
+                <NavLink href="/cart">购物车</NavLink>
+            </Menu.Item>
+        </Menu>
+        
+        <div Style="display: flex; align-items: center; margin-left: auto;">
+            @if (_userIsAuthenticated)
+            {
+                <Dropdown>
+                    <ChildContent>
+                        <Space Align="center">
+                            <Avatar Icon="user" />
+                            <span>@_userName</span>
+                        </Space>
+                    </ChildContent>
+                    <OverlayContent>
+                        <Menu Style="width: 150px;">
+                            <Menu.Item>
+                                <NavLink href="/account/profile">个人中心</NavLink>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <NavLink href="/account/orders">我的订单</NavLink>
+                            </Menu.Item>
+                            @if (_isAdmin)
+                            {
+                                <Menu.Divider />
+                                <Menu.Item>
+                                    <NavLink href="/admin/dashboard">后台管理</NavLink>
+                                </Menu.Item>
+                            }
+                            <Menu.Divider />
+                            <Menu.Item OnClick="@Logout">
+                                <SpaceItem Direction="horizontal">
+                                    <Icon Type="logout" />
+                                    <span>退出登录</span>
+                                </SpaceItem>
+                            </Menu.Item>
+                        </Menu>
+                    </OverlayContent>
+                </Dropdown>
+            }
+            else
+            {
+                <Space>
+                    <Button Type="default" Href="/account/login">登录</Button>
+                    <Button Type="primary" Href="/account/register">注册</Button>
+                </Space>
+            }
+        </div>
+    </AntDesign.Header>
+    
+    <AntDesign.Content Style="padding: 0 50px; margin-top: 16px;">
+        <Breadcrumb Style="margin: 16px 0;">
+            <Breadcrumb.Item>首页</Breadcrumb.Item>
+            @if (CurrentPage == "Products")
+            {
+                <Breadcrumb.Item>商品中心</Breadcrumb.Item>
+            }
+            else if (CurrentPage == "Cart")
+            {
+                <Breadcrumb.Item>购物车</Breadcrumb.Item>
+            }
+            <!-- 其他页面的面包屑 -->
+        </Breadcrumb>
+        
+        <div Class="site-layout-content">
+            @Body
+        </div>
+    </AntDesign.Content>
+    
+    <AntDesign.Footer Style="text-align: center;">
+        汽修配件商城 ©2023 Created by AutoPartsShop
+    </AntDesign.Footer>
+</AntDesign.Layout>
+
+@code {
+    private string CurrentPage => NavigationManager.ToAbsoluteUri(NavigationManager.Uri).AbsolutePath;
+    private bool _userIsAuthenticated;
+    private string _userName = "用户";
+    private bool _isAdmin;
+    
+    [Inject] private NavigationManager NavigationManager { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] private ICartService CartService { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserState();
+    }
+    
+    private async Task LoadUserState()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _userIsAuthenticated = authState.User.Identity.IsAuthenticated;
+        
+        if (_userIsAuthenticated)
+        {
+            _userName = authState.User.Identity.Name;
+            _isAdmin = authState.User.IsInRole("Admin");
+        }
+    }
+    
+    private async Task Logout()
+    {
+        await ((IAuthenticationService)AuthenticationStateProvider).SignOut();
+        NavigationManager.NavigateTo("/");
+    }
+}
