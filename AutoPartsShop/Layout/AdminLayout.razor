@@ -1,136 +1,143 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 
 <AntDesign.Layout Style="min-height: 100vh;">
-    <AntDesign.Sider Width="200" Collapsible="true">
-        <div Class="logo" Style="height: 32px; margin: 16px; background: rgba(255,255,255,0.3);"></div>
-        <Menu Mode="inline" Theme="dark" DefaultSelectedKeys="@_defaultSelectedKeys">
-            <Menu.Item Key="1">
-                <NavLink href="/admin/dashboard">
-                    <SpaceItem Direction="horizontal">
-                        <Icon Type="dashboard" />
-                        <span>仪表盘</span>
-                    </SpaceItem>
-                </NavLink>
-            </Menu.Item>
-            <Menu.SubMenu Key="sub1" 
-                          TitleContent="@(
-                              <SpaceItem Direction="horizontal">
-                                  <Icon Type="shop" />
-                                  <span>商品管理</span>
-                              </SpaceItem>)">
-                <Menu.Item Key="2">
-                    <NavLink href="/admin/products">商品列表</NavLink>
-                </Menu.Item>
-                <Menu.Item Key="3">
-                    <NavLink href="/admin/categories">分类管理</NavLink>
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu Key="sub2" 
-                          TitleContent="@(
-                              <SpaceItem Direction="horizontal">
-                                  <Icon Type="shopping-cart" />
-                                  <span>订单管理</span>
-                              </SpaceItem>)">
-                <Menu.Item Key="4">
-                    <NavLink href="/admin/orders">订单列表</NavLink>
-                </Menu.Item>
-                <Menu.Item Key="5">
-                    <NavLink href="/admin/refunds">退款管理</NavLink>
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu Key="sub3" 
-                          TitleContent="@(
-                              <SpaceItem Direction="horizontal">
-                                  <Icon Type="user" />
-                                  <span>用户管理</span>
-                              </SpaceItem>)">
-                <Menu.Item Key="6">
-                    <NavLink href="/admin/users">用户列表</NavLink>
-                </Menu.Item>
-                <Menu.Item Key="7">
-                    <NavLink href="/admin/roles">角色管理</NavLink>
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.SubMenu Key="sub4" 
-                          TitleContent="@(
-                              <SpaceItem Direction="horizontal">
-                                  <Icon Type="car" />
-                                  <span>车型管理</span>
-                              </SpaceItem>)">
-                <Menu.Item Key="8">
-                    <NavLink href="/admin/car-brands">品牌管理</NavLink>
-                </Menu.Item>
-                <Menu.Item Key="9">
-                    <NavLink href="/admin/car-models">车型管理</NavLink>
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.Item Key="10">
-                <NavLink href="/admin/settings">
-                    <SpaceItem Direction="horizontal">
-                        <Icon Type="setting" />
-                        <span>系统设置</span>
-                    </SpaceItem>
-                </NavLink>
-            </Menu.Item>
-        </Menu>
-    </AntDesign.Sider>
-    
-    <AntDesign.Layout>
-        <AntDesign.Header Style="background: #fff; padding: 0 24px; display: flex; align-items: center;">
-            <Icon Type="menu-unfold" Style="font-size: 18px; margin-right: 16px; cursor: pointer;" />
-            <div Style="flex: 1;"></div>
-            <Dropdown>
-                <ChildContent>
-                    <Space Align="center">
-                        <Avatar Icon="user" />
-                        <span>@_userName</span>
-                    </Space>
-                </ChildContent>
-                <OverlayContent>
-                    <Menu Style="width: 150px;">
-                        <Menu.Item>
-                            <NavLink href="/account/profile">个人中心</NavLink>
-                        </Menu.Item>
-                        <Menu.Divider />
-                        <Menu.Item OnClick="@Logout">
-                            <SpaceItem Direction="horizontal">
-                                <Icon Type="logout" />
-                                <span>退出登录</span>
-                            </SpaceItem>
-                        </Menu.Item>
-                    </Menu>
-                </OverlayContent>
-            </Dropdown>
-        </AntDesign.Header>
-        
-        <AntDesign.Content Style="margin: 24px 16px 0; overflow: initial;">
-            <div Class="site-layout-background" Style="padding: 24px;">
-                @Body
-            </div>
-        </AntDesign.Content>
-        
-        <AntDesign.Footer Style="text-align: center;">
-            汽修配件商城后台管理系统 ©2023
-        </AntDesign.Footer>
-    </AntDesign.Layout>
+	<AntDesign.Sider Width="200" Collapsible="true">
+		<div Class="logo" Style="height: 32px; margin: 16px; background: rgba(255,255,255,0.3);"></div>
+		<Menu Mode="MenuMode.Inline" Theme="MenuTheme.Dark" DefaultSelectedKeys="@_defaultSelectedKeys">
+			<MenuItem Key="1">
+				<NavLink href="/admin/dashboard">
+					<SpaceItem Direction="horizontal">
+						<Icon Type="dashboard" />
+						<span>仪表盘</span>
+					</SpaceItem>
+				</NavLink>
+			</MenuItem>
+			<SubMenu Key="sub1"
+					 TitleTemplate="@sub1Title">
+				<MenuItem Key="2">
+					<NavLink href="/admin/products">商品列表</NavLink>
+				</MenuItem>
+				<MenuItem Key="3">
+					<NavLink href="/admin/categories">分类管理</NavLink>
+				</MenuItem>
+			</SubMenu>
+			<SubMenu Key="sub2"
+					 TitleContent="@sub2Title">
+				<MenuItem Key="4">
+					<NavLink href="/admin/orders">订单列表</NavLink>
+				</MenuItem>
+				<MenuItem Key="5">
+					<NavLink href="/admin/refunds">退款管理</NavLink>
+				</MenuItem>
+			</SubMenu>
+			<SubMenu Key="sub3"
+					 TitleContent="@sub3Title">
+				<MenuItem Key="6">
+					<NavLink href="/admin/users">用户列表</NavLink>
+				</MenuItem>
+				<MenuItem Key="7">
+					<NavLink href="/admin/roles">角色管理</NavLink>
+				</MenuItem>
+			</SubMenu>
+			<SubMenu Key="sub4"
+					 TitleContent="@sub4Title">
+				<MenuItem Key="8">
+					<NavLink href="/admin/car-brands">品牌管理</NavLink>
+				</MenuItem>
+				<MenuItem Key="9">
+					<NavLink href="/admin/car-models">车型管理</NavLink>
+				</MenuItem>
+			</SubMenu>
+			<MenuItem Key="10">
+				<NavLink href="/admin/settings">
+					<SpaceItem Direction="horizontal">
+						<Icon Type="setting" />
+						<span>系统设置</span>
+					</SpaceItem>
+				</NavLink>
+			</MenuItem>
+		</Menu>
+	</AntDesign.Sider>
+
+	<AntDesign.Layout>
+		<AntDesign.Header Style="background: #fff; padding: 0 24px; display: flex; align-items: center;">
+			<Icon Type="menu-unfold" Style="font-size: 18px; margin-right: 16px; cursor: pointer;" />
+			<div Style="flex: 1;"></div>
+			<Dropdown>
+				<ChildContent>
+					<Space Align="SpaceAlign.Center">
+						<Avatar Icon="user" />
+						<span>@_userName</span>
+					</Space>
+				</ChildContent>
+				<Overlay>
+					<Menu Style="width: 150px;">
+						<Menu.Item>
+							<NavLink href="/account/profile">个人中心</NavLink>
+						</Menu.Item>
+						<Menu.Divider />
+						<Menu.Item OnClick="@Logout">
+							<SpaceItem Direction="horizontal">
+								<Icon Type="logout" />
+								<span>退出登录</span>
+							</SpaceItem>
+						</Menu.Item>
+					</Menu>
+				</Overlay>
+			</Dropdown>
+		</AntDesign.Header>
+
+		<AntDesign.Content Style="margin: 24px 16px 0; overflow: initial;">
+			<div Class="site-layout-background" Style="padding: 24px;">
+				@Body
+			</div>
+		</AntDesign.Content>
+
+		<AntDesign.Footer Style="text-align: center;">
+			汽修配件商城后台管理系统 ©2023
+		</AntDesign.Footer>
+	</AntDesign.Layout>
 </AntDesign.Layout>
 
 @code {
-    private string[] _defaultSelectedKeys = new string[] { "1" };
-    private string _userName = "管理员";
-    
-    [Inject] private NavigationManager NavigationManager { get; set; }
-    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-    
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        _userName = authState.User.Identity.Name;
-    }
-    
-    private async Task Logout()
-    {
-        await ((IAuthenticationService)AuthenticationStateProvider).SignOut();
-        NavigationManager.NavigateTo("/");
-    }
+	private string[] _defaultSelectedKeys = new string[] { "1" };
+	private string _userName = "管理员";
+	RenderFragment sub1Title =
+	@<SpaceItem Direction="horizontal">
+		<Icon Type="shop" />
+		<span>商品管理</span>
+	</SpaceItem>
+	;
+	RenderFragment sub2Title =
+	@<SpaceItem Direction="horizontal">
+		<Icon Type="shopping-cart" />
+		<span>订单管理</span>
+	</SpaceItem>
+	;
+	RenderFragment sub3Title =
+	@<SpaceItem Direction="horizontal">
+		<Icon Type="user" />
+		<span>用户管理</span>
+	</SpaceItem>;
+	RenderFragment sub4Title =
+	@<SpaceItem Direction="horizontal">
+		<Icon Type="car" />
+		<span>车型管理</span>
+	</SpaceItem>;
+
+	[Inject] private NavigationManager NavigationManager { get; set; }
+	[Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		_userName = authState.User.Identity.Name;
+	}
+
+	private async Task Logout()
+	{
+		NavigationManager.NavigateTo("/");
+	}
 }

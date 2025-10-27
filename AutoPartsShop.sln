@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.API", "AutoPartsShop.API\AutoPartsShop.API.csproj", "{BAAD720D-A714-488A-BA06-D097E2289E4A}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Identity", "AutoPartsShop.Identity\AutoPartsShop.Identity.csproj", "{014AD504-1257-4230-8C84-DE3B7E287510}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop", "AutoPartsShop\AutoPartsShop.csproj", "{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Test", "AutoPartsShop.Test\AutoPartsShop.Test.csproj", "{02F75F64-E7B7-9655-66CE-348B5FDB8592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Test1", "AutoPartsShop.Test1\AutoPartsShop.Test1.csproj", "{F6E40EF6-AFA0-4EA4-B491-8D426C4E7EB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F75F64-E7B7-9655-66CE-348B5FDB8592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F75F64-E7B7-9655-66CE-348B5FDB8592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F75F64-E7B7-9655-66CE-348B5FDB8592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F75F64-E7B7-9655-66CE-348B5FDB8592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E40EF6-AFA0-4EA4-B491-8D426C4E7EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E40EF6-AFA0-4EA4-B491-8D426C4E7EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E40EF6-AFA0-4EA4-B491-8D426C4E7EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E40EF6-AFA0-4EA4-B491-8D426C4E7EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

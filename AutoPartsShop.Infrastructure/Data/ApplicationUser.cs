@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoPartsShop.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace AutoPartsShop.Infrastructure.Data
@@ -13,5 +9,10 @@ namespace AutoPartsShop.Infrastructure.Data
         public string? FullName { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastLoginAt { get; set; }
+
+        // 导航属性
+        public virtual ShoppingCart? ShoppingCart { get; set; }
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
     }
 }

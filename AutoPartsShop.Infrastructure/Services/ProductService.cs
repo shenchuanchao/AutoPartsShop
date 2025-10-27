@@ -342,5 +342,27 @@ namespace AutoPartsShop.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<bool> ToggleSaleStatusAsync(int productId, bool isOnSale)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(productId);
+                if (product == null) return false;
+                product.IsActive = isOnSale;
+                product.UpdatedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "切换产品销售状态时发生错误，产品ID: {ProductId}", productId);
+                throw;
+            }
+        }
+
+
+
+
     }
 }

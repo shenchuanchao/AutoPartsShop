@@ -13,30 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 // 添加基础设施层服务（包括数据库上下文和业务服务）
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// 在API项目中注册Identity服务
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    // 密码策略
-    options.Password.RequiredLength = 6;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-
-    // 用户配置
-    options.User.RequireUniqueEmail = true;
-
-    // 登录配置
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedAccount = false;
-
-    // 锁定配置
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-})
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
-
 // 添加控制器和API探索
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -108,7 +84,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]+""))
         };
     });
 
@@ -128,11 +104,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    //app.UseSwaggerUI(c =>
-    //{
-    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AutoPartsShop API v1");
-    //    c.RoutePrefix = "swagger"; // 在/swagger访问Swagger UI
-    //});
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "AutoPartsShop API v1");
+        c.RoutePrefix = "swagger"; // 在/swagger访问Swagger UI
+    });
     // 开发环境下自动应用数据库迁移
     using (var scope = app.Services.CreateScope())
     {

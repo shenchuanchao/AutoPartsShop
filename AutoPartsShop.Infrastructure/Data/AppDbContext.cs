@@ -122,12 +122,14 @@ namespace AutoPartsShop.Infrastructure.Data
 
         private void SeedData(ModelBuilder modelBuilder)
         {
+            // 使用固定的日期时间，而不是动态的 DateTime.UtcNow
+            var fixedDate = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             // 添加默认分类
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "发动机部件", Description = "发动机相关配件", SortOrder = 1, CreatedAt = DateTime.UtcNow },
-                new Category { Id = 2, Name = "制动系统", Description = "刹车系统配件", SortOrder = 2, CreatedAt = DateTime.UtcNow },
-                new Category { Id = 3, Name = "悬挂系统", Description = "悬挂和减震配件", SortOrder = 3, CreatedAt = DateTime.UtcNow },
-                new Category { Id = 4, Name = "电气系统", Description = "电子和电气配件", SortOrder = 4, CreatedAt = DateTime.UtcNow }
+                new Category { Id = 1, Name = "发动机部件", Description = "发动机相关配件", SortOrder = 1, CreatedAt = fixedDate },
+                new Category { Id = 2, Name = "制动系统", Description = "刹车系统配件", SortOrder = 2, CreatedAt = fixedDate },
+                new Category { Id = 3, Name = "悬挂系统", Description = "悬挂和减震配件", SortOrder = 3, CreatedAt = fixedDate },
+                new Category { Id = 4, Name = "电气系统", Description = "电子和电气配件", SortOrder = 4, CreatedAt = fixedDate }
             );
 
             // 添加示例产品
@@ -145,7 +147,7 @@ namespace AutoPartsShop.Infrastructure.Data
                     VehicleModel = "卡罗拉",
                     YearRange = "2014-2019",
                     ImageUrl = "/images/products/oil-filter.jpg",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = fixedDate 
                 },
                 new Product
                 {
@@ -161,7 +163,7 @@ namespace AutoPartsShop.Infrastructure.Data
                     VehicleModel = "思域",
                     YearRange = "2015-2021",
                     ImageUrl = "/images/products/brake-pads.jpg",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = fixedDate 
                 }
             );
         }

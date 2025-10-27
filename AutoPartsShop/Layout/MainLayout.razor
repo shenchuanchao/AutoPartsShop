@@ -1,8 +1,10 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 <AntDesign.Layout Class="layout">
     <AntDesign.Header Style="display: flex; align-items: center;">
         <div class="logo" Style="color: white; font-size: 20px; margin-right: 20px;">汽修配件商城</div>
-        <Menu Mode="horizontal" Theme="dark" Style="flex: 1; min-width: 0;">
+        <Menu Mode="MenuMode.Horizontal" Theme="MenuTheme.Dark" Style="flex: 1; min-width: 0;">
             <Menu.Item Key="1">
                 <NavLink href="/" Match="NavLinkMatch.All">首页</NavLink>
             </Menu.Item>
@@ -19,12 +21,12 @@
             {
                 <Dropdown>
                     <ChildContent>
-                        <Space Align="center">
+                        <Space Align="SpaceAlign.Center">
                             <Avatar Icon="user" />
                             <span>@_userName</span>
                         </Space>
                     </ChildContent>
-                    <OverlayContent>
+                    <Overlay>
                         <Menu Style="width: 150px;">
                             <Menu.Item>
                                 <NavLink href="/account/profile">个人中心</NavLink>
@@ -47,14 +49,14 @@
                                 </SpaceItem>
                             </Menu.Item>
                         </Menu>
-                    </OverlayContent>
+                    </Overlay>
                 </Dropdown>
             }
             else
             {
                 <Space>
                     <Button Type="default" Href="/account/login">登录</Button>
-                    <Button Type="primary" Href="/account/register">注册</Button>
+                    <Button Type="ButtonType.Primary" Href="/account/register">注册</Button>
                 </Space>
             }
         </div>
@@ -92,7 +94,7 @@
     
     [Inject] private NavigationManager NavigationManager { get; set; }
     [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-    [Inject] private ICartService CartService { get; set; }
+    [Inject] private AutoPartsShop.Core.Interfaces.ICartService CartService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -113,7 +115,7 @@
     
     private async Task Logout()
     {
-        await ((IAuthenticationService)AuthenticationStateProvider).SignOut();
+        //await ((IAuthenticationService)AuthenticationStateProvider).SignOut();
         NavigationManager.NavigateTo("/");
     }
 }
