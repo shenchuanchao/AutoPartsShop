@@ -28,6 +28,7 @@ namespace AutoPartsShop.Infrastructure
             // 注册 Identity
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
+                // 密码策略配置
                 options.Password.RequiredLength = 6;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;

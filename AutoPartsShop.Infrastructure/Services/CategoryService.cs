@@ -3,6 +3,7 @@ using AutoPartsShop.Core.Interfaces;
 using AutoPartsShop.Domain.Models;
 using Microsoft.Extensions.Logging;
 using AutoPartsShop.Infrastructure.Data;
+using AutoPartsShop.Domain.Dtos;
 
 namespace AutoPartsShop.Infrastructure.Services
 {

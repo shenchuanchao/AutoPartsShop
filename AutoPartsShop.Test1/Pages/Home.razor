@@ -1,7 +1,31 @@
-﻿@page "/"
+﻿@inject AutoPartsShop.Core.Interfaces.IProductService ProductService
+@inject AutoPartsShop.Core.Interfaces.ICategoryService CategoryService
+@page "/"
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+@Categories.Count
+
+
+
+@code{
+
+	//获取产品分类
+	private List<AutoPartsShop.Domain.Dtos.CategoryDto> Categories;
+	protected override async Task OnInitializedAsync()
+	{
+		Categories = await CategoryService.GetCategoriesAsync();
+		
+	}
+
+
+
+
+
+
+
+
+
+}

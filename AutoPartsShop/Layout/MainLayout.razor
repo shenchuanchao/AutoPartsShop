@@ -1,19 +1,19 @@
-﻿@using Microsoft.AspNetCore.Authentication
+﻿
 @using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
 <AntDesign.Layout Class="layout">
     <AntDesign.Header Style="display: flex; align-items: center;">
         <div class="logo" Style="color: white; font-size: 20px; margin-right: 20px;">汽修配件商城</div>
         <Menu Mode="MenuMode.Horizontal" Theme="MenuTheme.Dark" Style="flex: 1; min-width: 0;">
-            <Menu.Item Key="1">
+            <MenuItem Key="1">
                 <NavLink href="/" Match="NavLinkMatch.All">首页</NavLink>
-            </Menu.Item>
-            <Menu.Item Key="2">
+            </MenuItem>
+            <MenuItem Key="2">
                 <NavLink href="/products">商品中心</NavLink>
-            </Menu.Item>
-            <Menu.Item Key="3">
+            </MenuItem>
+            <MenuItem Key="3">
                 <NavLink href="/cart">购物车</NavLink>
-            </Menu.Item>
+            </MenuItem>
         </Menu>
         
         <div Style="display: flex; align-items: center; margin-left: auto;">
@@ -28,26 +28,26 @@
                     </ChildContent>
                     <Overlay>
                         <Menu Style="width: 150px;">
-                            <Menu.Item>
+                            <MenuItem>
                                 <NavLink href="/account/profile">个人中心</NavLink>
-                            </Menu.Item>
-                            <Menu.Item>
+                            </MenuItem>
+                            <MenuItem>
                                 <NavLink href="/account/orders">我的订单</NavLink>
-                            </Menu.Item>
+                            </MenuItem>
                             @if (_isAdmin)
                             {
-                                <Menu.Divider />
-                                <Menu.Item>
+                                <MenuDivider />
+                                <MenuItem>
                                     <NavLink href="/admin/dashboard">后台管理</NavLink>
-                                </Menu.Item>
+                                </MenuItem>
                             }
-                            <Menu.Divider />
-                            <Menu.Item OnClick="@Logout">
+                            <MenuDivider />
+                            <MenuItem OnClick="@Logout">
                                 <SpaceItem Direction="horizontal">
                                     <Icon Type="logout" />
                                     <span>退出登录</span>
                                 </SpaceItem>
-                            </Menu.Item>
+                            </MenuItem>
                         </Menu>
                     </Overlay>
                 </Dropdown>
@@ -55,8 +55,8 @@
             else
             {
                 <Space>
-                    <Button Type="default" Href="/account/login">登录</Button>
-                    <Button Type="ButtonType.Primary" Href="/account/register">注册</Button>
+                    <a Href="/account/login" Target="_blank">登录</a>
+                    <a Href="/account/register">注册</a>
                 </Space>
             }
         </div>
@@ -64,14 +64,14 @@
     
     <AntDesign.Content Style="padding: 0 50px; margin-top: 16px;">
         <Breadcrumb Style="margin: 16px 0;">
-            <Breadcrumb.Item>首页</Breadcrumb.Item>
+            <BreadcrumbItem>首页</BreadcrumbItem>
             @if (CurrentPage == "Products")
             {
-                <Breadcrumb.Item>商品中心</Breadcrumb.Item>
+                <BreadcrumbItem>商品中心</BreadcrumbItem>
             }
             else if (CurrentPage == "Cart")
             {
-                <Breadcrumb.Item>购物车</Breadcrumb.Item>
+                <BreadcrumbItem>购物车</BreadcrumbItem>
             }
             <!-- 其他页面的面包屑 -->
         </Breadcrumb>
