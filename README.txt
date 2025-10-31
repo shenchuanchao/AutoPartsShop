@@ -1,4 +1,4 @@
-【Blazor + Ant Design + .NET 9技术栈】
+【Blazor + Ant Design + .NET 8技术栈】
 
 AutoPartsShop/    #汽车配件商城系统
 ├── AutoPartsShop/          # Blazor WebAssembly 前端（商城前台+管理后台）
