@@ -2,7 +2,7 @@
 @using AutoPartsShop.Domain.Dtos
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
-@inject AutoPartsShop.Core.Interfaces.ICartService CartService
+@inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject MessageService MessageService
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -88,7 +88,7 @@ else
 
 			if (!string.IsNullOrEmpty(userId))
 			{
-				_cart = await CartService.GetCartAsync(userId);
+				_cart = await Http.GetFromJsonAsync<ShoppingCartDto>($"api/cart/{userId}");
 			}
 		}
 		finally
@@ -144,7 +144,7 @@ else
 				{
 					Quantity = quantity
 				};
-			await CartService.UpdateCartItemAsync(userId, cartItemId, updateCartItemRequest);
+			//await CartService.UpdateCartItemAsync(userId, cartItemId, updateCartItemRequest);
 			await LoadCart();
 		}
 	}
@@ -159,7 +159,7 @@ else
 
 			if (!string.IsNullOrEmpty(userId))
 			{
-				await CartService.RemoveFromCartAsync(userId,cartItemId);
+				//await CartService.RemoveFromCartAsync(userId,cartItemId);
 				await LoadCart();
 			}
 		}

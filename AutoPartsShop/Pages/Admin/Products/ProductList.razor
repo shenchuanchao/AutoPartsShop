@@ -2,8 +2,7 @@
 @using AutoPartsShop.Domain.Common
 @using AutoPartsShop.Domain.Dtos
 @using AutoPartsShop.Domain.Models
-@inject AutoPartsShop.Core.Interfaces.ICategoryService CategoryService
-@inject AutoPartsShop.Core.Interfaces.IProductService ProductService
+@inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject MessageService MessageService
 
@@ -84,7 +83,7 @@
 	private async Task LoadCategories()
 	{
 		// 加载分类选项
-		var categories = await CategoryService.GetCategoriesAsync();
+		var categories = await Http.GetFromJsonAsync<List<CategoryDto>>("/category");
 		_categoryDic = categories.ToDictionary(c => c.Id, c => c.Name);
 		// 如果需要添加默认选项
 
@@ -101,7 +100,7 @@
 			productQuery.PageSize = _pageSize;
 			productQuery.SearchTerm = _searchTerm;
 			productQuery.CategoryId = _selectedCategoryId;
-			var result = await ProductService.GetProductsAsync(productQuery);
+			var result = await Http.GetFromJsonAsync<PagedList<ProductDto>>($"/product?Page={productQuery.Page}&PageSize={productQuery.PageSize}&SearchTerm={productQuery.SearchTerm}&CategoryId={productQuery.CategoryId}");
 
 			_products = new List<ProductDto>();
 			_total = result.TotalCount;
@@ -167,7 +166,7 @@
 		{
 			try
 			{
-				await ProductService.DeleteProductAsync(id);
+				//await ProductService.DeleteProductAsync(id);
 				await LoadProducts();
 				MessageService.Success("删除成功");
 			}
@@ -182,7 +181,7 @@
 	{
 		try
 		{
-			await ProductService.ToggleSaleStatusAsync(id, IsActive);
+			//await ProductService.ToggleSaleStatusAsync(id, IsActive);
 			await LoadProducts();
 			MessageService.Success(IsActive ? "上架成功" : "下架成功");
 		}

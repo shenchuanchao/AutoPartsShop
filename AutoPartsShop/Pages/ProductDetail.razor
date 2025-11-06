@@ -1,7 +1,6 @@
 ﻿@page "/product/{ProductId:guid}"
 @using AutoPartsShop.Domain.Dtos
-@inject AutoPartsShop.Core.Interfaces.IProductService ProductService
-@inject AutoPartsShop.Core.Interfaces.ICartService CartService
+@inject HttpClient Http
 @inject MessageService MessageService
 @inject Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthenticationStateProvider
 
@@ -117,7 +116,7 @@ else
 
 	private async Task LoadProduct()
 	{
-		_product = await ProductService.GetProductByIdAsync(_productId);
+		_product = await Http.GetFromJsonAsync<ProductDto>($"/product/{_productId}");
 		if (_product == null)
 		{
 			MessageService.Error("商品不存在或已下架");

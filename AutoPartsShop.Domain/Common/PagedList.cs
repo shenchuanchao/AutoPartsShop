@@ -17,6 +17,8 @@ namespace AutoPartsShop.Domain.Common
         public bool HasPrevious => Page > 1;
         public bool HasNext => Page < TotalPages;
 
+        // 添加无参构造函数用于反序列化
+        public PagedList() { }
         public PagedList(List<T> items, int count, int page, int pageSize)
         {
             Page = page;

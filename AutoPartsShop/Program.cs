@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using AutoPartsShop;
 using Microsoft.AspNetCore.Components.Authorization;
-using AutoPartsShop.Core.Interfaces;
 using Blazored.LocalStorage;
-using AutoPartsShop.Infrastructure.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -39,16 +37,16 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 
 // 注册自定义 HTTP 客户端（带认证）
-builder.Services.AddHttpClient("AuthHttpClient", client =>
-{
-    client.BaseAddress = new Uri(baseAddress);
-    client.DefaultRequestHeaders.Add("User-Agent", "AutoPartsShop-BlazorWASM");
-});
+//builder.Services.AddHttpClient("AuthHttpClient", client =>
+//{
+//    client.BaseAddress = new Uri(baseAddress);
+//    client.DefaultRequestHeaders.Add("User-Agent", "AutoPartsShop-BlazorWASM");
+//});
 
 // 身份认证和授权服务
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IAuthService, AuthService>();
 
 // 注册应用服务
 
@@ -76,15 +74,15 @@ async Task InitializeServices(WebAssemblyHost host)
         // 这里可以添加应用启动时需要初始化的服务
         // 例如：检查认证状态、加载用户配置等
 
-        var authService = host.Services.GetRequiredService<IAuthService>();
-        var localStorage = host.Services.GetRequiredService<ILocalStorageService>();
+        //var authService = host.Services.GetRequiredService<IAuthService>();
+        //var localStorage = host.Services.GetRequiredService<ILocalStorageService>();
 
-        // 检查是否有保存的token并设置认证状态
-        var token = await authService.GetTokenAsync();
-        if (!string.IsNullOrEmpty(token))
-        {
-            Console.WriteLine("检测到已保存的认证令牌");
-        }
+        //// 检查是否有保存的token并设置认证状态
+        //var token = await authService.GetTokenAsync();
+        //if (!string.IsNullOrEmpty(token))
+        //{
+        //    Console.WriteLine("检测到已保存的认证令牌");
+        //}
     }
     catch (Exception ex)
     {

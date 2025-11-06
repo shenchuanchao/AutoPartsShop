@@ -14,8 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoPartsShop.Core\AutoPartsShop.Core.csproj" />
-    <ProjectReference Include="..\AutoPartsShop.Infrastructure\AutoPartsShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\AutoPartsShop.Domain\AutoPartsShop.Domain.csproj" />
   </ItemGroup>
 
 </Project>
