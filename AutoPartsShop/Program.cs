@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using AutoPartsShop;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazored.LocalStorage;
+using AutoPartsShop.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -45,10 +46,14 @@ builder.Services.AddScoped(sp => new HttpClient
 
 // 身份认证和授权服务
 builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<ApiAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 //builder.Services.AddScoped<IAuthService, AuthService>();
 
 // 注册应用服务
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<AuthService>();
 
 // 配置日志
 if (builder.HostEnvironment.IsDevelopment())

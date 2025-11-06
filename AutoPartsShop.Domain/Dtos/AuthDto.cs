@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoPartsShop.Domain.Models;
 
 namespace AutoPartsShop.Domain.Dtos
 {
@@ -23,8 +25,21 @@ namespace AutoPartsShop.Domain.Dtos
     /// </summary>
     public class LoginRequest
     {
+        [Required]
         public string Email { get; set; } = string.Empty;
+        [Required]
         public string Password { get; set; } = string.Empty;
+
+        public bool RememberMe { get; set; } = true;
+
     }
+
+    public class LoginResponse
+    {
+        public string Token { get; set; } = string.Empty;
+        public DateTime Expiration { get; set; }
+        public User user { get; set; } = new();
+    }
+
 
 }

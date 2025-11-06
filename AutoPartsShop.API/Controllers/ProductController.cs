@@ -46,6 +46,15 @@ namespace AutoPartsShop.API.Controllers
             return Ok(product);
         }
 
+        //获取热门商品
+        [HttpGet]
+        [Route("hot/{totalNums:int}")]
+        public async Task<IActionResult> GetHotProducts(int totalNums)
+        {
+            var products = await _productService.GetHotProductsAsync(totalNums);
+            return Ok(products);
+        }
+
 
 
 

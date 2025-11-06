@@ -6,7 +6,7 @@ namespace AutoPartsShop.Core.Interfaces
     public interface IProductService
     {
         Task<PagedList<ProductDto>> GetProductsAsync(ProductQuery query);
-
+        Task<List<ProductDto>> GetHotProductsAsync(int totalNums);
         Task<ProductDto?> GetProductByIdAsync(int id);
         Task<ProductDto> CreateProductAsync(CreateProductRequest request);
         Task<ProductDto> UpdateProductAsync(int id, UpdateProductRequest request);

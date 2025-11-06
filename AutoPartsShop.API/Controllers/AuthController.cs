@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using AutoPartsShop.Domain.Dtos;
+using AutoPartsShop.Domain.Models;
 using AutoPartsShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -108,16 +109,17 @@ namespace AutoPartsShop.API.Controllers
                 var token = GenerateJwtToken(user);
 
                 _logger.LogInformation("用户登录成功: {Email}", model.Email);
-                return Ok(new
+                return Ok(new LoginResponse
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo,
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    Expiration = token.ValidTo,
                     user = new
+                    User
                     {
-                        id = user.Id,
-                        email = user.Email,
-                        fullName = user.FullName,
-                        userName = user.UserName
+                        Id = user.Id,
+                        Email = user.Email,
+                        FullName = user.FullName,
+                        UserName = user.UserName
                     }
                 });
             }

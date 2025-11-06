@@ -64,7 +64,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorApp", policy =>
     {
-        policy.WithOrigins("https://localhost:7000", "http://localhost:5051") // 前端应用的地址
+        policy.WithOrigins("https://localhost:7023", "http://localhost:5051") // 前端应用的地址
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();

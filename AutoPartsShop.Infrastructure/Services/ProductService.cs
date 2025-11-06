@@ -115,7 +115,47 @@ namespace AutoPartsShop.Infrastructure.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// 获取热门商品
+        /// </summary>
+        /// <param name="totalNums"></param>
+        /// <returns></returns>
+        public async Task<List<ProductDto>> GetHotProductsAsync(int totalNums) 
+        {
+            try
+            {
+                var products = await _context.Products
+                    .Include(p => p.Category)
+                    .Where(p => p.IsActive)
+                    .OrderByDescending(p => p.CreatedAt) // 假设按创建时间排序作为热门商品的标准
+                    .Take(totalNums)
+                    .Select(p => new ProductDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Description = p.Description,
+                        SKU = p.SKU,
+                        Price = p.Price,
+                        OriginalPrice = p.OriginalPrice,
+                        StockQuantity = p.StockQuantity,
+                        CategoryId = p.CategoryId,
+                        CategoryName = p.Category.Name,
+                        Brand = p.Brand,
+                        VehicleModel = p.VehicleModel,
+                        YearRange = p.YearRange,
+                        ImageUrl = p.ImageUrl,
+                        IsActive = p.IsActive,
+                        CreatedAt = p.CreatedAt
+                    })
+                    .ToListAsync();
+                return products;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "获取热门商品时发生错误");
+                throw;
+            }
+        }
         public async Task<ProductDto?> GetProductByIdAsync(int id)
         {
             try
