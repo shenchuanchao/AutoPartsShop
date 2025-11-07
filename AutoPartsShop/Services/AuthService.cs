@@ -53,6 +53,11 @@ namespace AutoPartsShop.Services
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginResponse.Token);
                     return ApiResponse<LoginResponse>.Success(loginResponse);
                 }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    return ApiResponse<LoginResponse>.Failure(errorMessage, 401);
+                }
                 else
                 {
                     // 处理非成功状态码
@@ -75,7 +80,16 @@ namespace AutoPartsShop.Services
             }
 
         }
-
+        /// <summary>
+        /// 用户登出
+        /// </summary>
+        /// <returns></returns>
+        public async Task LogoutAsync()
+        {
+            await _localStorage.RemoveItemAsync("authToken");
+            ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
+            _httpClient.DefaultRequestHeaders.Authorization = null;
+        }
 
     }
 }

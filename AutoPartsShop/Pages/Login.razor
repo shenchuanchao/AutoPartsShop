@@ -2,15 +2,15 @@
 
 @using AutoPartsShop.Domain.Dtos
 @using AutoPartsShop.Services
-@inject MessageService MsgService
+@inject IMessageService _message
 @inject AuthService AuthService
 @inject NavigationManager NavigationManager
 
 <PageTitle>登录 - 汽修配件商城</PageTitle>
 <AntDesign.Form Model="@_loginData" Style="height:100%"
-				OnFinish="OnFinish"
-				LabelColSpan="4"
-				WrapperColSpan="4">
+OnFinish="OnFinish"
+LabelColSpan="4"
+WrapperColSpan="4">
 	<FormItem WrapperColOffset="10" WrapperColSpan="4">
 		<AntDesign.Input Placeholder="请输入账号" AllowClear="true" @bind-Value="@context.Email">
 			<Prefix>
@@ -33,7 +33,7 @@
 </AntDesign.Form>
 @code
 {
-#if NET8_0_OR_GREATER
+	#if NET8_0_OR_GREATER
     [SupplyParameterFromForm(FormName = "form1")]
 #endif
 	public LoginRequest _loginData { get; set; } = new();
@@ -43,8 +43,15 @@
 	private async Task OnFinish(EditContext editContext)
 	{
 		loginResponse = await AuthService.LoginAsync(_loginData);
-		//await MsgService.Success("登录成功！");
-		NavigationManager.NavigateTo("/");
+		if (loginResponse.IsSuccess)
+		{
+			NavigationManager.NavigateTo("/");
+		}
+		else
+		{
+		//显示错误信息
+			_message.Error(loginResponse.ErrorMessage);		
+		}
 	}
 
 }

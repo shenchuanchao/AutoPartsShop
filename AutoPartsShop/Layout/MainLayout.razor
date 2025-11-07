@@ -24,7 +24,7 @@
 					</NavLink>
 				</MenuItem>
 				<MenuItem>
-					<NavLink onclick="ShowCart">
+					<NavLink onclick="()=>ShowCart()">
 						<Icon Type="shopping-cart" />
 						购物车
 					</NavLink>
@@ -56,10 +56,10 @@
 									}
 									<MenuDivider />
 									<MenuItem OnClick="@Logout">
-										<SpaceItem Direction="horizontal">
+										<Space >
 											<Icon Type="logout" />
 											<span>退出登录</span>
-										</SpaceItem>
+										</Space>
 									</MenuItem>
 								</Menu>
 							</Overlay>
@@ -82,67 +82,7 @@
 					</NavLink>
 				</MenuItem>
 			</Menu>
-			@* <Space Size="SpaceSize.Middle">
-
-				<Button Type="ButtonType.Link" OnClick="@(() => NavigationManager.NavigateTo("/"))">
-					<Icon Type="home" />
-					首页
-				</Button>
-				<Button Type="ButtonType.Link" OnClick="@(() => NavigationManager.NavigateTo("/products"))">
-					<Icon Type="user" />
-					商品中心
-				</Button>
-				<Button Type="ButtonType.Link" OnClick="ShowCart">
-					<Icon Type="shopping-cart" />
-					购物车
-				</Button>
-				@if (_userIsAuthenticated)
-				{
-					<Dropdown>
-						<ChildContent>
-							<Space Align="SpaceAlign.Center">
-								<Avatar Icon="user" />
-								<span>@_userName</span>
-							</Space>
-						</ChildContent>
-						<Overlay>
-							<Menu Style="width: 150px;">
-								<MenuItem>
-									<NavLink href="/account/profile">个人中心</NavLink>
-								</MenuItem>
-								<MenuItem>
-									<NavLink href="/account/orders">我的订单</NavLink>
-								</MenuItem>
-								@if (_isAdmin)
-								{
-									<MenuDivider />
-									<MenuItem>
-										<NavLink href="/admin/dashboard">后台管理</NavLink>
-									</MenuItem>
-								}
-								<MenuDivider />
-								<MenuItem OnClick="@Logout">
-									<SpaceItem Direction="horizontal">
-										<Icon Type="logout" />
-										<span>退出登录</span>
-									</SpaceItem>
-								</MenuItem>
-							</Menu>
-						</Overlay>
-					</Dropdown>
-				}
-				else
-				{
-					<Button Type="ButtonType.Link" OnClick="@(() => NavigationManager.NavigateTo("/account"))">
-						<Icon Type="user" />
-						我的账户
-					</Button>
-				}
-				<Button Type="ButtonType.Link" OnClick="ShowCustomerService">
-					<Icon Type="customer-service" />
-					客服
-				</Button>
-			</Space> *@
+			
 		</div>
 
 	</AntDesign.Header>
@@ -180,7 +120,7 @@
 
 
 	[Inject] private NavigationManager NavigationManager { get; set; }
-	[Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+	[Inject] private ApiAuthenticationStateProvider ApiAuthenticationStateProvider { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -201,7 +141,7 @@
 
 	private async Task LoadUserState()
 	{
-		var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		var authState = await ApiAuthenticationStateProvider.GetAuthenticationStateAsync();
 		_userIsAuthenticated = authState.User.Identity.IsAuthenticated;
 
 		if (_userIsAuthenticated)
@@ -213,7 +153,7 @@
 
 	private async Task Logout()
 	{
-		//await ((IAuthenticationService)AuthenticationStateProvider).SignOut();
+		ApiAuthenticationStateProvider.MarkUserAsLoggedOut();
 		NavigationManager.NavigateTo("/");
 	}
 
