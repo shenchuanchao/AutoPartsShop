@@ -16,6 +16,10 @@ namespace AutoPartsShop
             _httpClient = httpClient;
             _localStorage = localStorage;
         }
+        /// <summary>
+        /// 获取认证状态
+        /// </summary>
+        /// <returns></returns>
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var savedToken = await _localStorage.GetItemAsync<string>("authToken");
@@ -29,21 +33,31 @@ namespace AutoPartsShop
 
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(savedToken), "jwt")));
         }
-
+        /// <summary>
+        /// 标记用户为已认证
+        /// </summary>
+        /// <param name="account"></param>
         public void MarkUserAsAuthenticated(string account)
         {
             var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, account) }, "apiauth"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
             NotifyAuthenticationStateChanged(authState);
         }
-
+        /// <summary>
+        /// 标记用户为已登出
+        /// </summary>
         public void MarkUserAsLoggedOut()
         {
+            _localStorage.RemoveItemAsync("authToken");
             var anonymousUser = new ClaimsPrincipal(new ClaimsIdentity());
             var authState = Task.FromResult(new AuthenticationState(anonymousUser));
             NotifyAuthenticationStateChanged(authState);
         }
-
+        /// <summary>
+        /// 从 JWT 解析声明
+        /// </summary>
+        /// <param name="jwt"></param>
+        /// <returns></returns>
         private static IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
         {
             var claims = new List<Claim>();
