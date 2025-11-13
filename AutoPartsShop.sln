@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop", "AutoPartsS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Test1", "AutoPartsShop.Test1\AutoPartsShop.Test1.csproj", "{A32BB3E4-4771-4A61-9C2F-9774F4D58D1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Mud", "AutoPartsShop.Mud\AutoPartsShop.Mud.csproj", "{1CA80EC2-4348-413A-B593-C8A89D9975E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A32BB3E4-4771-4A61-9C2F-9774F4D58D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A32BB3E4-4771-4A61-9C2F-9774F4D58D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A32BB3E4-4771-4A61-9C2F-9774F4D58D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
