@@ -1,0 +1,170 @@
+﻿@inherits LayoutComponentBase
+@using AutoPartsShop.Core.Interfaces
+@using AutoPartsShop.Infrastructure.Services
+@using AutoPartsShop.Mud.Components.Themes
+@using AutoPartsShop.Mud.Models
+@inject IStorageService LocalStorageService
+@inject ThemeService ThemeService
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudThemeProvider @bind-IsDarkMode="_isDarkMode" Theme="_theme" />
+<MudLayout>
+	<MudAppBar Color="Color.Primary" Elevation="4">
+		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
+		AutoPartsShop
+		<MudSpacer />
+		<ThemesMenu @bind-ThemingDrawerOpen="_themingDrawerOpen"
+					ThemeManager="_themeManager"
+					ThemeManagerChanged="ThemeManagerChanged" />
+
+		<MudLink OnClick="@(() => _themingDrawerOpen = true)" Color="Color.Inherit">
+			<MudTooltip Arrow="true"
+						Placement="Placement.Left"
+						Text="Themes">
+				<MudIcon Icon="@Icons.Material.Outlined.Brush"
+						 Color="Color.Inherit"
+						 Class="mr-5" />
+			</MudTooltip>
+		</MudLink>
+
+		<MudMenu Dense
+				 Variant="Variant.Text"
+				 Size="Size.Medium"
+				 Color="Color.Inherit"
+				 Icon="@Icons.Material.TwoTone.MoreVert">
+
+			<MudMenu StartIcon="@Icons.Material.TwoTone.Settings"
+					 IconColor="Color.Primary"
+					 Label="设置">
+				<MudMenuItem Icon="@Icons.Material.TwoTone.Language"
+							 IconColor="Color.Secondary"
+							 Label="Language" />
+
+
+			</MudMenu>
+
+			<MudDivider />
+
+			<MudMenuItem Href="/"
+						 ForceLoad
+						 Icon="@Icons.Material.TwoTone.Login"
+						 IconColor="Color.Primary"
+						 Label="Sign In" />
+
+			<MudMenuItem Href="/"
+						 ForceLoad
+						 Icon="@Icons.Material.TwoTone.Logout"
+						 IconColor="Color.Primary"
+						 Label="Sign Out" />
+		</MudMenu>
+	</MudAppBar>
+	<MudDrawer @bind-Open="_drawerOpen" Elevation="12">
+		<MudDrawerHeader>
+			<MudIcon Icon="@Icons.Material.Filled.CarCrash"></MudIcon>
+			<MudText Typo="Typo.h6">AutoPartsShop</MudText>
+		</MudDrawerHeader>
+		<NavMenu />
+	</MudDrawer>
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.False">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+</MudLayout>
+
+
+@code {
+	private bool _drawerOpen = true;
+	void DrawerToggle()
+	{
+		_drawerOpen = !_drawerOpen;
+	}
+
+	private bool isDarkMode;
+	private bool _themingDrawerOpen;
+	private MudTheme _theme = new();
+	private bool _isDarkMode = false;
+	private MudThemeProvider? mudThemeProvider;
+
+	private ThemeManagerModel _themeManager = new()
+		{
+			IsDarkMode = false,
+			PrimaryColor = "#594AE2",
+		};
+
+	private bool _initialized = false;
+	private async Task UpdateThemeManagerLocalStorage()
+	{
+		await LocalStorageService.SetAsync("themeManager", _themeManager);
+	}
+
+	private async Task ThemeManagerChanged(ThemeManagerModel themeManager)
+	{
+		_themeManager = themeManager;
+
+		_isDarkMode = _themeManager.IsDarkMode;
+
+		ThemeService.SetDarkMode(_isDarkMode);
+
+		_theme = new MudTheme()
+			{
+				PaletteLight = new PaletteLight()
+				{
+					Primary = _themeManager.PrimaryColor,
+					AppbarBackground = _themeManager.PrimaryColor,
+				},
+				PaletteDark = new PaletteDark()
+				{
+					Primary = _themeManager.PrimaryColor,
+				}
+			};
+
+		await UpdateThemeManagerLocalStorage();
+		StateHasChanged();
+	}
+
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender && !_initialized)
+		{
+			try
+			{
+				_themeManager = await LocalStorageService.GetAsync<ThemeManagerModel>("themeManager")
+					?? new()
+						{
+							IsDarkMode = false,
+							PrimaryColor = "#594AE2",
+						};
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"LocalStorageService.GetAsync 报错: {ex}");
+				_themeManager = new()
+					{
+						IsDarkMode = false,
+						PrimaryColor = "#594AE2",
+					};
+			}
+
+			await ThemeManagerChanged(_themeManager);
+			_initialized = true;
+			StateHasChanged();
+		}
+	}
+
+	protected Task OnSystemPreferenceChanged(bool isDarkMode)
+	{
+		this.isDarkMode = isDarkMode;
+		StateHasChanged();
+
+		return Task.CompletedTask;
+	}
+
+
+}
+
