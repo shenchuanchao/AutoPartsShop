@@ -11,9 +11,9 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudThemeProvider @bind-IsDarkMode="_isDarkMode" Theme="_theme" />
+<MudThemeProvider IsDarkMode="_isDarkMode" Theme="_theme" />
 <MudLayout>
-	<MudAppBar Color="Color.Primary" Elevation="4">
+	<MudAppBar Color="Color.Inherit" Elevation="4">
 		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
 		AutoPartsShop
 		<MudSpacer />

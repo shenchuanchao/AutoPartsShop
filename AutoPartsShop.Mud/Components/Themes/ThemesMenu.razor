@@ -1,17 +1,19 @@
-﻿<MudDrawer Anchor="Anchor.Right"
-           @bind-Open="ThemingDrawerOpen"
-           Elevation="1"
-           Variant="@DrawerVariant.Temporary"
-           Width="260px">
+﻿
+<MudDrawer Anchor="Anchor.Right"
+@bind-Open="ThemingDrawerOpen"
+Elevation="1"
+Variant="@DrawerVariant.Temporary"
+Width="260px"
+           OverlayAutoClose="true">
     <MudDrawerHeader Class="align-center">
         <MudText Typo="Typo.body1">
             <b>Themes</b>
         </MudText>
         <MudSpacer />
         <MudIconButton Color="Color.Default"
-                       Icon="@Icons.Material.Filled.Close"
-                       OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))"
-                       Size="Size.Small" />
+        Icon="@Icons.Material.Filled.Close"
+        OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))"
+        Size="Size.Small" />
     </MudDrawerHeader>
     <MudDivider />
     <div class="ma-6">
@@ -19,26 +21,26 @@
             <b>Mode</b>
         </MudText>
         <MudGrid Class="my-3"
-                 Spacing="3">
+        Spacing="3">
             <MudItem xs="6">
                 <MudButton Class="mode-button"
-                           FullWidth="true"
-                           OnClick="@(() => ToggleDarkLightMode(false))"
-                           Style="background: white;">
+                FullWidth="true"
+                OnClick="@(() => ToggleDarkLightMode(false))"
+                Style="background: white;">
                     <ChildContent>
                         <MudIcon Color="Color.Primary"
-                                 Icon="@Icons.Material.Filled.WbSunny" />
+                        Icon="@Icons.Material.Filled.WbSunny" />
                     </ChildContent>
                 </MudButton>
             </MudItem>
             <MudItem xs="6">
                 <MudButton Class="mode-button"
-                           FullWidth="true"
-                           OnClick="@(() => ToggleDarkLightMode(true))"
-                           Style="background: #333333;">
+                FullWidth="true"
+                OnClick="@(() => ToggleDarkLightMode(true))"
+                Style="background: #333333;">
                     <ChildContent>
                         <MudIcon Icon="@Icons.Material.Filled.DarkMode"
-                                 Style="color: #c9c9c9" />
+                        Style="color: #c9c9c9" />
                     </ChildContent>
                 </MudButton>
             </MudItem>
@@ -48,16 +50,16 @@
             <b>Color</b>
         </MudText>
         <MudGrid Class="my-3"
-                 Spacing="3">
+        Spacing="3">
             @foreach (var color in _primaryColors)
             {
                 <MudItem xs="4">
                     <MudButton Class="@(color == ThemeManager.PrimaryColor ? "color-button color-button-selected" : "color-button")"
-                               FullWidth="true"
-                               OnClick="@(() => UpdateThemePrimaryColor(color))">
+                    FullWidth="true"
+                    OnClick="@(() => UpdateThemePrimaryColor(color))">
                         <ChildContent>
                             <div class="@(color == ThemeManager.PrimaryColor ? "oval oval-selected" : "oval")"
-                                 style="@($"background: {color};")">
+                            style="@($"background: {color};")">
                             </div>
                         </ChildContent>
                     </MudButton>
@@ -67,10 +69,6 @@
     </div>
 </MudDrawer>
 
-<MudOverlay DarkBackground="false"
-            OnClick="@(() => ThemingDrawerOpenChanged.InvokeAsync(false))"
-            Visible="ThemingDrawerOpen"
-            VisibleChanged="ThemingDrawerOpenChanged" />
 
 
 <style>

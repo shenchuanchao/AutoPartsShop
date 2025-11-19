@@ -28,10 +28,10 @@ public partial class ThemesMenu
         Colors.Amber.Default,
     };
 
-    [EditorRequired][Parameter] public bool ThemingDrawerOpen { get; set; }
-    [EditorRequired][Parameter] public EventCallback<bool> ThemingDrawerOpenChanged { get; set; }
-    [EditorRequired][Parameter] public ThemeManagerModel ThemeManager { get; set; }
-    [EditorRequired][Parameter] public EventCallback<ThemeManagerModel> ThemeManagerChanged { get; set; }
+    [Parameter] public bool ThemingDrawerOpen { get; set; }
+    [Parameter] public EventCallback<bool> ThemingDrawerOpenChanged { get; set; }
+    [Parameter] public ThemeManagerModel ThemeManager { get; set; }
+    [Parameter] public EventCallback<ThemeManagerModel> ThemeManagerChanged { get; set; }
 
     private async Task UpdateThemePrimaryColor(string color)
     {
@@ -44,4 +44,6 @@ public partial class ThemesMenu
         ThemeManager.IsDarkMode = isDarkMode;
         await ThemeManagerChanged.InvokeAsync(ThemeManager);
     }
+
+
 }
