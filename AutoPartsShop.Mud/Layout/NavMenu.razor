@@ -1,6 +1,6 @@
 ﻿<MudNavMenu>
 	<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-	<AuthorizeView Authorized="Admin">
+	<AuthorizeView>
 		<MudNavLink Href="/user" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.People">User</MudNavLink>
 
 	</AuthorizeView>

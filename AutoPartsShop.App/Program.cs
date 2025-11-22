@@ -8,6 +8,10 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using AutoPartsShop.Infrastructure.Data;
+using Microsoft.AspNetCore.OData;
+using System.Text.Json.Serialization;
+using AutoPartsShop.Identity.Models;
+using Microsoft.OData.ModelBuilder;
 
 Environment.CurrentDirectory = AppContext.BaseDirectory;
 
@@ -24,6 +28,13 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseUrls = true;
     options.LowercaseQueryStrings = true;
 });
+
+ODataConventionModelBuilder modelBuilder = new();
+modelBuilder.EntitySet<ApplicationUserDto>("User");
+
+builder.Services.AddControllers()
+    .AddOData(options => options.EnableQueryFeatures().AddRouteComponents("odata", modelBuilder.GetEdmModel()))
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
