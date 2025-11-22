@@ -1,18 +1,20 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">
-        <MudIcon Icon="@Icons.Material.Filled.Home" Class="me-2" />
-        Home</MudNavLink>
-    <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix">
-        <MudIcon Icon="@Icons.Material.Filled.Calculate" Class="me-2"/>
-        Counter</MudNavLink>
-    <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">
-        <MudIcon Icon="@Icons.Material.Filled.Cloud" Class="me-2" />
-        Weather</MudNavLink>
-  <MudNavGroup Title="Settings" Icon="@Icons.Material.Filled.Settings" Expanded="false"  Class="me-2" >
-            <MudNavLink Href="/users">Users</MudNavLink>
-            <MudNavLink Href="/security">Security</MudNavLink>
-        </MudNavGroup>
-    <MudNavLink Href="/register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">Register</MudNavLink>
-    <MudNavLink Href="/login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Login">Login</MudNavLink>
+	<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+	<AuthorizeView Authorized="Admin">
+		<MudNavLink Href="/user" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.People">User</MudNavLink>
 
+	</AuthorizeView>
+	<AuthorizeView Roles="Admin">
+			</AuthorizeView>
+	<AuthorizeView>
+		<Authorized>
+			<MudNavLink Href="/account/changePassword" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">Change Password</MudNavLink>
+			<MudNavLink Href="/logout" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Logout">Logout (@context.User.Identity!.Name)</MudNavLink>
+		</Authorized>
+		<NotAuthorized>
+			<MudNavLink Href="/register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Edit">Register</MudNavLink>
+			<MudNavLink Href="/login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Login">Login</MudNavLink>
+		</NotAuthorized>
+	</AuthorizeView>
+	
 </MudNavMenu>

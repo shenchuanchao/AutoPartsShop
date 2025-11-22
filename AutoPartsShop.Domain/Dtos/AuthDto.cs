@@ -13,11 +13,20 @@ namespace AutoPartsShop.Domain.Dtos
     /// </summary>
     public class RegisterRequest
     {
+        [Required]
+        [EmailAddress]
         public string Email { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
+        [Required]
         public string Password { get; set; } = string.Empty;
+        [Required]
+        [Display(Name = "Confirm Password")]
+        public string? ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "Full Name")]
         public string FullName { get; set; } = string.Empty;
         public string? PhoneNumber { get; set; }
+        public string? Photo { get; set; }
     }
 
     /// <summary>
@@ -26,6 +35,7 @@ namespace AutoPartsShop.Domain.Dtos
     public class LoginRequest
     {
         [Required]
+        [EmailAddress]
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Password { get; set; } = string.Empty;

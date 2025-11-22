@@ -1,9 +1,11 @@
-﻿using AutoPartsShop.Core.Interfaces;
+﻿
 using AutoPartsShop.Domain.Dtos;
-using AutoPartsShop.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.BearerToken;
+using AutoPartsShop.Domain.Models;
+using AutoPartsShop.Identity.Models;
+using AutoPartsShop.Mud.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net;
+using System.Net.Http.Json;
 using System.Security.Claims;
 
 namespace AutoPartsShop.Mud.Authorization;
@@ -96,7 +98,7 @@ public class IdentityAuthenticationStateProvider(HttpClient httpClient, IStorage
             response.EnsureSuccessStatusCode();
         }
 
-        var me = await response.Content.ReadFromJsonAsync<ApplicationUser>()
+        var me = await response.Content.ReadFromJsonAsync<ApplicationUserWithRolesDto>()
             ?? throw new Exception("The login attempt failed.");
 
         List<IDictionary<string, string>> claims = new List<IDictionary<string, string>>();

@@ -46,7 +46,6 @@ namespace AutoPartsShop.Infrastructure
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ThemeService>();
 
             return services;
         }

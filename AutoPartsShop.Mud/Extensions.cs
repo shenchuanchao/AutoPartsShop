@@ -1,8 +1,8 @@
-﻿using AutoPartsShop.Core.Interfaces;
-using AutoPartsShop.Infrastructure.Services;
-using AutoPartsShop.Mud.Authorization;
+﻿using AutoPartsShop.Mud.Authorization;
+using AutoPartsShop.Mud.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 
 namespace AutoPartsShop.Mud;
@@ -12,6 +12,7 @@ public static class Extensions
 
     public static void AddBlazorServices(this IServiceCollection services, string baseAddress)
     {
+        services.AddScoped<AppService>();
 
         services.AddScoped(sp
             => new HttpClient { BaseAddress = new Uri(baseAddress) });

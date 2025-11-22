@@ -1,8 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@using AutoPartsShop.Core.Interfaces
-@using AutoPartsShop.Infrastructure.Services
 @using AutoPartsShop.Mud.Components.Themes
-@using AutoPartsShop.Mud.Models
 @inject IStorageService LocalStorageService
 @inject ThemeService ThemeService
 @* Required *@
@@ -49,7 +46,7 @@
 
 			<MudDivider />
 
-			<MudMenuItem Href="/"
+			<MudMenuItem Href="/login"
 						 ForceLoad
 						 Icon="@Icons.Material.TwoTone.Login"
 						 IconColor="Color.Primary"
@@ -65,7 +62,7 @@
 	<MudDrawer @bind-Open="_drawerOpen" Elevation="12">
 		<MudDrawerHeader>
 			<MudIcon Icon="@Icons.Material.Filled.CarCrash"></MudIcon>
-			<MudText Typo="Typo.h6">AutoPartsShop</MudText>
+			<MudText Typo="Typo.h6" >AutoPartsShop</MudText>
 		</MudDrawerHeader>
 		<NavMenu />
 	</MudDrawer>

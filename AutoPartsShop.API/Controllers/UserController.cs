@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 namespace AutoPartsShop.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    [Authorize(Roles ="Admin")]
+    [Route("api/[controller]")]
+    //[Authorize(Roles ="Admin")]
     public class UserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -264,21 +264,21 @@ namespace AutoPartsShop.API.Controllers
                 }
 
                 // 更新角色
-                if (request.Roles != null)
-                {
-                    var currentRoles = await _userManager.GetRolesAsync(user);
-                    var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
-                    if (!removeResult.Succeeded)
-                    {
-                        return BadRequest(new { errors = removeResult.Errors.Select(e => e.Description) });
-                    }
+                //if (request.Roles != null)
+                //{
+                //    var currentRoles = await _userManager.GetRolesAsync(user);
+                //    var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+                //    if (!removeResult.Succeeded)
+                //    {
+                //        return BadRequest(new { errors = removeResult.Errors.Select(e => e.Description) });
+                //    }
 
-                    var addResult = await _userManager.AddToRolesAsync(user, request.Roles);
-                    if (!addResult.Succeeded)
-                    {
-                        return BadRequest(new { errors = addResult.Errors.Select(e => e.Description) });
-                    }
-                }
+                //    var addResult = await _userManager.AddToRolesAsync(user, request.Roles);
+                //    if (!addResult.Succeeded)
+                //    {
+                //        return BadRequest(new { errors = addResult.Errors.Select(e => e.Description) });
+                //    }
+                //}
 
                 _logger.LogInformation("管理员更新用户成功: {UserId}", id);
 
