@@ -1,5 +1,4 @@
 ﻿using AutoPartsShop.Identity.Models;
-using AutoPartsShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
@@ -23,13 +22,13 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
 
     [HttpGet("")]
     [EnableQuery]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public ActionResult<IQueryable<ApplicationUserDto>> Get()
     {
-        var users = userManager.Users.Select(x => new ApplicationUserDto
+        var users = _userManager.Users.Select(x => new ApplicationUserDto
         {
             Id = x.Id,
             Email = x.Email,
@@ -63,7 +62,7 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             return Forbid();
         }
 
-        var user = await userManager.FindByIdAsync(key);
+        var user = await _userManager.FindByIdAsync(key);
 
         if (user == null)
         {
@@ -79,7 +78,7 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             PhoneNumberConfirmed = user.PhoneNumberConfirmed,
             UserName = user.UserName,
             FullName = user.FullName,
-            Roles = [.. (await userManager.GetRolesAsync(user))],
+            Roles = [.. (await _userManager.GetRolesAsync(user))],
         });
     }
 
@@ -116,7 +115,7 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             return Forbid();
         }
 
-        var user = await userManager.FindByIdAsync(key);
+        var user = await _userManager.FindByIdAsync(key);
 
         if (user == null)
         {
@@ -127,7 +126,7 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
         user.FullName = update.FullName;
         user.PhoneNumber = update.PhoneNumber;
 
-        await userManager.UpdateAsync(user);
+        await _userManager.UpdateAsync(user);
 
         return Ok(new ApplicationUserDto
         {
@@ -174,15 +173,15 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             return Forbid();
         }
 
-        var user = await userManager.FindByIdAsync(key);
+        var user = await _userManager.FindByIdAsync(key);
 
         if (user == null)
         {
             return NotFound();
         }
 
-        if ((await userManager.GetUsersInRoleAsync("Admin")).Count == 1
-            && await userManager.IsInRoleAsync(user, "Admin"))
+        if ((await _userManager.GetUsersInRoleAsync("Admin")).Count == 1
+            && await _userManager.IsInRoleAsync(user, "Admin"))
         {
             ModelStateDictionary errors = new();
             errors.AddModelError("LastAdmin", "The last Admin cannot be deleted.");
@@ -190,7 +189,7 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             return BadRequest(errors);
         }
 
-        await userManager.DeleteAsync(user);
+        await _userManager.DeleteAsync(user);
 
         return NoContent();
     }
@@ -222,16 +221,16 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> PutRolesAsync(string key, IEnumerable<string> roles)
     {
-        var user = await userManager.FindByIdAsync(key);
+        var user = await _userManager.FindByIdAsync(key);
 
         if (user == null)
         {
             return NotFound();
         }
 
-        var adminUsers = await userManager.GetUsersInRoleAsync("Admin") ?? [];
+        var adminUsers = await _userManager.GetUsersInRoleAsync("Admin") ?? [];
 
-        var userRoles = await userManager.GetRolesAsync(user) ?? [];
+        var userRoles = await _userManager.GetRolesAsync(user) ?? [];
 
         var removeRoles = userRoles.Where(x => !roles.Contains(x));
         var addRoles = roles.Where(x => !userRoles.Contains(x));
@@ -244,8 +243,8 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             return BadRequest(errors);
         }
 
-        await userManager.RemoveFromRolesAsync(user, removeRoles);
-        await userManager.AddToRolesAsync(user, addRoles);
+        await _userManager.RemoveFromRolesAsync(user, removeRoles);
+        await _userManager.AddToRolesAsync(user, addRoles);
 
         return NoContent();
     }

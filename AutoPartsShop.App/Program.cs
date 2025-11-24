@@ -7,11 +7,14 @@ using System.Threading.RateLimiting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using AutoPartsShop.Infrastructure;
 using AutoPartsShop.Infrastructure.Data;
 using Microsoft.AspNetCore.OData;
 using System.Text.Json.Serialization;
 using AutoPartsShop.Identity.Models;
 using Microsoft.OData.ModelBuilder;
+using AutoPartsShop.Domain.Dtos;
+using AutoPartsShop.App.Services;
 
 Environment.CurrentDirectory = AppContext.BaseDirectory;
 
@@ -29,8 +32,12 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseQueryStrings = true;
 });
 
+// 添加基础业务服务
+builder.Services.AddApplicationServices();
+
 ODataConventionModelBuilder modelBuilder = new();
 modelBuilder.EntitySet<ApplicationUserDto>("User");
+modelBuilder.EntitySet<RoleDto>("Role");
 
 builder.Services.AddControllers()
     .AddOData(options => options.EnableQueryFeatures().AddRouteComponents("odata", modelBuilder.GetEdmModel()))
@@ -153,7 +160,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardedHeaders = ForwardedHeaders.All;
 });
 
-//builder.Services.AddScoped<ImageService>();
+builder.Services.AddScoped<ImageService>();
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()

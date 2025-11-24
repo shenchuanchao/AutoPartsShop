@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
   </ItemGroup>
@@ -16,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoPartsShop.Core\AutoPartsShop.Core.csproj" />
     <ProjectReference Include="..\AutoPartsShop.Domain\AutoPartsShop.Domain.csproj" />
+    <ProjectReference Include="..\AutoPartsShop.Identity\AutoPartsShop.Identity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

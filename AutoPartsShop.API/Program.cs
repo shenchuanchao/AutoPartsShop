@@ -6,12 +6,14 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using AutoPartsShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
+using AutoPartsShop.Identity.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // 添加基础设施层服务（包括数据库上下文和业务服务）
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 // 添加控制器和API探索
 builder.Services.AddControllers()

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using AutoPartsShop.Domain.Models;
+using AutoPartsShop.Identity.Models;
 
 namespace AutoPartsShop.Infrastructure.Data
 {

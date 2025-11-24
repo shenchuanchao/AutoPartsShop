@@ -1,6 +1,5 @@
 ﻿using AutoPartsShop.Domain.Dtos;
-using AutoPartsShop.Infrastructure.Data;
-using Microsoft.AspNetCore.Authorization;
+using AutoPartsShop.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

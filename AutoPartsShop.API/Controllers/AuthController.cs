@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using AutoPartsShop.Domain.Dtos;
 using AutoPartsShop.Domain.Models;
+using AutoPartsShop.Identity.Models;
 using AutoPartsShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

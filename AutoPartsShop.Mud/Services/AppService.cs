@@ -63,7 +63,7 @@ public class AppService(
     {
         var response = await httpClient.PostAsJsonAsync(
             "/identity/register",
-            new { registerModel.Email, registerModel.Password,registerModel.FullName });
+            new { registerModel.Email, registerModel.Password, registerModel.FullName });
 
         if (response.StatusCode == HttpStatusCode.BadRequest)
         {
@@ -142,6 +142,27 @@ public class AppService(
     {
         return GetODataAsync<ApplicationUserDto>("User", top, skip, orderby, filter, count, expand);
     }
+    /// <summary>
+    /// 获取角色OData数据
+    /// </summary>
+    /// <param name="top"></param>
+    /// <param name="skip"></param>
+    /// <param name="orderby"></param>
+    /// <param name="filter"></param>
+    /// <param name="count"></param>
+    /// <param name="expand"></param>
+    /// <returns></returns>
+    public Task<ODataResult<RoleDto>?> ListRoleODataAsync(
+    int? top = null,
+    int? skip = null,
+    string? orderby = null,
+    string? filter = null,
+    bool count = false,
+    string? expand = null)
+    {
+        return GetODataAsync<RoleDto>("Role", top, skip, orderby, filter, count, expand);
+    }
+
     /// <summary>
     /// 获取OData数据
     /// </summary>
@@ -307,6 +328,67 @@ public class AppService(
 
         await HandleResponseErrorsAsync(response);
     }
+    /// <summary>
+    /// 获取角色列表
+    /// </summary>
+    /// <returns></returns>
+    public async Task<ApiResponse<List<RoleDto>>> GetRoleSelectAsync()
+    {
+        try
+        {
+            var token = await authenticationStateProvider.GetBearerTokenAsync()
+            ?? throw new Exception("Not authorized");
+            HttpRequestMessage request = new(HttpMethod.Get, $"/api/role/select");
+            request.Headers.Add("Authorization", $"Bearer {token}");
+
+            var response = await httpClient.SendAsync(request);
+
+            await HandleResponseErrorsAsync(response);
+            var roles = await response.Content.ReadFromJsonAsync<List<RoleDto>>();
+            return ApiResponse<List<RoleDto>>.Success(roles);
+        }
+        catch (Exception ex)
+        {
+            return ApiResponse<List<RoleDto>>.Failure(ex.Message, 400);
+        }
+
+    }
+    /// <summary>
+    /// 创建一个角色
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public async Task<(bool Success, RoleDto? Data, string? Error)> CreateRoleAsync(string name)
+    {
+        try
+        {
+            var response = await httpClient.PostAsJsonAsync("/api/role", new { Name = name });
+            if (!response.IsSuccessStatusCode)
+                return (false, null, await response.Content.ReadAsStringAsync());
+            var role = await response.Content.ReadFromJsonAsync<RoleDto>();
+            return (true, role, null);
+        }
+        catch (Exception ex)
+        {
+            return (false, null, ex.Message);
+        }
+    }
+    //删除角色
+    public async Task<(bool Success, string? Error)> DeleteRoleAsync(string id)
+    {
+        try
+        {
+            var response = await httpClient.DeleteAsync($"/api/role/{id}");
+            if (!response.IsSuccessStatusCode)
+                return (false, await response.Content.ReadAsStringAsync());
+            return (true, null);
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
+
     /// <summary>
     /// 修改用户角色
     /// </summary>
