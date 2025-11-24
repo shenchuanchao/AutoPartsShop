@@ -60,17 +60,16 @@ public class IdentityAuthenticationStateProvider(HttpClient httpClient, IStorage
 
         if (!response.IsSuccessStatusCode)
         {
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new Exception("The login attempt failed.");
-            }
-            else if (response.StatusCode != HttpStatusCode.NotFound)
-            {
-                string? message = await response.Content.ReadAsStringAsync();
-                throw new Exception(message);
-            }
+            var errorContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"登录失败: {response.StatusCode}, 内容: {errorContent}");
 
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new Exception("账号或密码错误。");
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+                throw new Exception($"请求参数错误: {errorContent}");
+            else
+                throw new Exception($"登录失败: {errorContent}");
+
         }
 
         accessTokenResponse = await response.Content.ReadFromJsonAsync<AccessTokenResponse>()
