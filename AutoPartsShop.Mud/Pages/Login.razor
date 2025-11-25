@@ -17,7 +17,8 @@
             <MudCardContent>
                 <MudTextField @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" Label="Email" />
                 <MudTextField @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" Label="Password" InputType="InputType.Password" />
-            </MudCardContent>
+                <MudCheckBox @bind-Value="loginModel.RememberMe" Label="RememberMe"></MudCheckBox>
+                </MudCardContent>
             <MudCardActions>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
             </MudCardActions>

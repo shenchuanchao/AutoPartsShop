@@ -3,7 +3,6 @@
 @inject IStorageService LocalStorageService
 @inject ThemeService ThemeService
 @* Required *@
-<MudThemeProvider />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -85,7 +84,7 @@
 	private bool _themingDrawerOpen;
 	private MudTheme _theme = new();
 	private bool _isDarkMode = false;
-	private MudThemeProvider? mudThemeProvider;
+	//private MudThemeProvider? mudThemeProvider;
 
 	private ThemeManagerModel _themeManager = new()
 		{

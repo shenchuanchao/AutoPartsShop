@@ -10,6 +10,15 @@ namespace AutoPartsShop.Infrastructure.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await base.SaveChangesAsync(cancellationToken);
+        }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -148,7 +157,7 @@ namespace AutoPartsShop.Infrastructure.Data
                     VehicleModel = "卡罗拉",
                     YearRange = "2014-2019",
                     ImageUrl = "/images/products/oil-filter.jpg",
-                    CreatedAt = fixedDate 
+                    CreatedAt = fixedDate
                 },
                 new Product
                 {
@@ -164,10 +173,10 @@ namespace AutoPartsShop.Infrastructure.Data
                     VehicleModel = "思域",
                     YearRange = "2015-2021",
                     ImageUrl = "/images/products/brake-pads.jpg",
-                    CreatedAt = fixedDate 
+                    CreatedAt = fixedDate
                 }
             );
         }
     }
 
-   }
+}

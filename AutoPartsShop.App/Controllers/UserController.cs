@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using AutoPartsShop.Domain.Dtos;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
+using AutoPartsShop.Infrastructure.Data;
 
 namespace AutoPartsShop.App.Controllers;
 

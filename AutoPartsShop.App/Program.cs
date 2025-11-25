@@ -7,7 +7,6 @@ using System.Threading.RateLimiting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using AutoPartsShop.Infrastructure;
 using AutoPartsShop.Infrastructure.Data;
 using Microsoft.AspNetCore.OData;
 using System.Text.Json.Serialization;
@@ -32,8 +31,6 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseQueryStrings = true;
 });
 
-// 添加基础业务服务
-builder.Services.AddApplicationServices();
 
 ODataConventionModelBuilder modelBuilder = new();
 modelBuilder.EntitySet<ApplicationUserDto>("User");
@@ -81,7 +78,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-   // options.UseSqlite(builder.Configuration.GetConnectionString("AppDbContext"));
+    // options.UseSqlite(builder.Configuration.GetConnectionString("AppDbContext"));
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContextSQLServer"));
 });
 
@@ -159,7 +156,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.All;
 });
-
+// 添加基础业务服务
+//builder.Services.AddApplicationServices();
 builder.Services.AddScoped<ImageService>();
 
 // Configure Serilog
@@ -290,10 +288,9 @@ async Task InitializeRolesAndUsers(IServiceProvider serviceProvider)
     {
         var user = new ApplicationUser
         {
-            UserName = "admin",
+            UserName = "admin@autopartsshop.com",
             Email = "admin@autopartsshop.com",
-            FullName = "系统管理员",
-            EmailConfirmed = true
+            FullName = "系统管理员"
         };
 
         var createPowerUser = await userManager.CreateAsync(user, "Admin123!");

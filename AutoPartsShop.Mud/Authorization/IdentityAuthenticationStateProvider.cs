@@ -54,15 +54,14 @@ public class IdentityAuthenticationStateProvider(HttpClient httpClient, IStorage
         currentUser = anonymousUser;
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(currentUser)));
 
-        var response = await httpClient.PostAsJsonAsync("/identity/login?useCookies=false", loginModel);
+        var response = await httpClient.PostAsJsonAsync("/identity/login?useCookies=false",loginModel);
 
         var date = response.Headers.Date ?? DateTimeOffset.UtcNow;
 
         if (!response.IsSuccessStatusCode)
         {
             var errorContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"登录失败: {response.StatusCode}, 内容: {errorContent}");
-
+           
             if (response.StatusCode == HttpStatusCode.Unauthorized)
                 throw new Exception("账号或密码错误。");
             else if (response.StatusCode == HttpStatusCode.BadRequest)
@@ -117,10 +116,10 @@ public class IdentityAuthenticationStateProvider(HttpClient httpClient, IStorage
             claim.Add(ClaimTypes.Email, me.Email);
         }
 
-        //foreach (var role in me.Roles ?? Enumerable.Empty<string>())
-        //{
-        //    claim.Add(ClaimTypes.Role, role);
-        //}
+        foreach (var role in me.Roles ?? Enumerable.Empty<string>())
+        {
+            claim.Add(ClaimTypes.Role, role);
+        }
 
         ClaimsIdentity loggedInUserIdentity = new(claim.Select(x => new Claim(x.Key, x.Value)), "Identity");
         currentUser = new ClaimsPrincipal(loggedInUserIdentity);
@@ -183,7 +182,10 @@ public class IdentityAuthenticationStateProvider(HttpClient httpClient, IStorage
 
         return accessTokenResponse.AccessToken;
     }
-
+    /// <summary>
+    /// 登出
+    /// </summary>
+    /// <returns></returns>
     public async Task LogoutAsync()
     {
         await storageService.RemoveAsync("IdentityAuthenticationStateProvider_accessTokenResponse");
