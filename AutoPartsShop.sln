@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Domain", "Aut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Identity", "AutoPartsShop.Identity\AutoPartsShop.Identity.csproj", "{014AD504-1257-4230-8C84-DE3B7E287510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop", "AutoPartsShop\AutoPartsShop.csproj", "{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Mud", "AutoPartsShop.Mud\AutoPartsShop.Mud.csproj", "{1CA80EC2-4348-413A-B593-C8A89D9975E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Wasm", "AutoPartsShop.Wasm\AutoPartsShop.Wasm.csproj", "{D69AEBDB-A3B4-4733-9009-82E1C85ED93D}"
@@ -47,10 +45,6 @@ Global
 		{014AD504-1257-4230-8C84-DE3B7E287510}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{014AD504-1257-4230-8C84-DE3B7E287510}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{014AD504-1257-4230-8C84-DE3B7E287510}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBCA74D7-1758-40C3-A4F0-CD6D98BE08DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CA80EC2-4348-413A-B593-C8A89D9975E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
