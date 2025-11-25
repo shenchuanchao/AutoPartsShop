@@ -3,6 +3,7 @@ using AutoPartsShop.Test;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -15,7 +16,7 @@ var baseAddress = builder.HostEnvironment.IsDevelopment()
     : builder.HostEnvironment.BaseAddress;
 
 // 添加Ant Design服务
-builder.Services.AddAntDesign();
+builder.Services.AddMudServices();
 
 // 配置 Ant Design 主题（可选）
 //builder.Services.Configure<AntDesign.Theme>(options =>

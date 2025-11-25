@@ -1,7 +1,585 @@
 ﻿@page "/"
+<!-- 英雄区轮播 -->
+<MudCarousel Class="mud-width-full" Style="height:500px;" AutoPlay="true" Interval="5000" ShowControls="true" ShowIndicators="true" TData="object">
+	<MudCarouselItem>
+		<div class="d-flex h-full">
+			<div class="w-1/2 bg-gradient-to-r from-blue-500 to-purple-600 flex flex-col justify-center p-12 text-white">
+				<MudText Typo="Typo.h3" Class="font-bold mb-4">夏季新品上市</MudText>
+				<MudText Typo="Typo.body1" Class="mb-6">探索我们的最新系列，享受夏日特惠，限时折扣高达50%。</MudText>
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Class="w-32" StartIcon="@Icons.Material.Filled.ShoppingBag">
+					立即购买
+				</MudButton>
+			</div>
+			<div class="w-1/2 bg-gray-100 flex items-center justify-center">
+				<img src="https://picsum.photos/id/1059/800/500" alt="夏季新品" class="h-full object-cover" />
+			</div>
+		</div>
+	</MudCarouselItem>
+	<MudCarouselItem>
+		<div class="d-flex h-full">
+			<div class="w-1/2 bg-gradient-to-r from-pink-500 to-orange-500 flex flex-col justify-center p-12 text-white">
+				<MudText Typo="Typo.h3" Class="font-bold mb-4">会员专享优惠</MudText>
+				<MudText Typo="Typo.body1" Class="mb-6">成为会员即可享受专属折扣、免费配送和优先购买权。</MudText>
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Class="w-32" StartIcon="@Icons.Material.Filled.PersonAdd">
+					加入会员
+				</MudButton>
+			</div>
+			<div class="w-1/2 bg-gray-100 flex items-center justify-center">
+				<img src="https://picsum.photos/id/1062/800/500" alt="会员优惠" class="h-full object-cover" />
+			</div>
+		</div>
+	</MudCarouselItem>
+	<MudCarouselItem>
+		<div class="d-flex h-full">
+			<div class="w-1/2 bg-gradient-to-r from-green-500 to-teal-600 flex flex-col justify-center p-12 text-white">
+				<MudText Typo="Typo.h3" Class="font-bold mb-4">环保系列</MudText>
+				<MudText Typo="Typo.body1" Class="mb-6">我们的环保系列采用可持续材料，为地球贡献一份力量。</MudText>
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Class="w-32" StartIcon="@Icons.Material.Filled.EnergySavingsLeaf">
+					了解更多
+				</MudButton>
+			</div>
+			<div class="w-1/2 bg-gray-100 flex items-center justify-center">
+				<img src="https://picsum.photos/id/1054/800/500" alt="环保系列" class="h-full object-cover" />
+			</div>
+		</div>
+	</MudCarouselItem>
+</MudCarousel>
+<MudContainer MaxWidth="MaxWidth.Large">
+	<!-- 商品分类区 -->
+	<div class="mb-16">
+		<div class="d-flex justify-between align-items-center mb-8">
+			<MudText Typo="Typo.h4" Class="font-bold">商品分类</MudText>
+			<MudLink Href="/categories" Class="text-primary flex items-center">
+				查看全部 <MudIcon Icon="@Icons.Material.Filled.ChevronRight" Size="Size.Small" Class="ml-1" />
+			</MudLink>
+		</div>
 
-<PageTitle>Home</PageTitle>
+		<MudGrid class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
 
-<h1>Hello, world!</h1>
+			@foreach (var category in Categories)
+			{
+				<MudItem xs="6" sm="3">
+					<MudCard Class="category-card hover:shadow-lg transition-shadow duration-300">
+						<MudCardMedia Image="@category.ImageUrl" Height="180" Class="object-cover" />
+						<MudCardContent>
+							<MudText Typo="Typo.h6" Class="text-center">@category.Name</MudText>
+						</MudCardContent>
+						<MudCardActions Class="justify-center">
+							<MudButton Variant="Variant.Text" Color="Color.Primary" Size="Size.Small">
+								浏览 <MudIcon Icon="@Icons.Material.Filled.ChevronRight" Size="Size.Small" Class="ml-1" />
+							</MudButton>
+						</MudCardActions>
+					</MudCard>
+				</MudItem>
+			}
 
-Welcome to your new app.
+		</MudGrid>
+	</div>
+	<!-- 热门商品区 -->
+	<div class="mb-16">
+		<div class="d-flex justify-between align-items-center mb-8">
+			<MudText Typo="Typo.h4" Class="font-bold">热门商品</MudText>
+			<div class="d-flex space-x-2">
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Small" Class="filter-btn">全部</MudButton>
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Small" Class="filter-btn">新品</MudButton>
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Small" Class="filter-btn">热销</MudButton>
+				<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Small" Class="filter-btn">折扣</MudButton>
+			</div>
+		</div>
+
+		<MudGrid class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+
+			@foreach (var product in PopularProducts)
+			{
+				<MudItem xs="6" sm="3">
+					<MudCard Class="product-card">
+						<div class="relative">
+							<MudCardMedia Image="@product.ImageUrl" Height="250" Class="object-cover" />
+
+							@if (product.IsNew)
+							{
+								<MudChip T="string" Color="Color.Primary" Size="Size.Small" Class="absolute top-2 left-2">
+									新品
+								</MudChip>
+							}
+
+
+							@if (product.DiscountPercentage > 0)
+							{
+								<MudChip T="string" Color="Color.Error" Size="Size.Small" Class="absolute top-2 right-2">
+									-@product.DiscountPercentage.ToString()%
+								</MudChip>
+							}
+
+							<div class="absolute bottom-2 right-2 opacity-0 product-card-hover">
+								<MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Color="Color.Default" Size="Size.Small" Class="bg-black bg-opacity-50 rounded-full" />
+								<MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Size="Size.Small" Class="bg-black bg-opacity-50 rounded-full ml-1" />
+							</div>
+						</div>
+						<MudCardContent>
+							<MudText Typo="Typo.body1" Class="font-medium">@product.Name</MudText>
+							<div class="flex items-center mt-1">
+								<MudRating Value="@product.Rating" MaxValue="5" ReadOnly="true" Size="Size.Small" />
+								<MudText Typo="Typo.caption" Class="text-gray-500 ml-1">(@product.ReviewCount)</MudText>
+							</div>
+							<div class="flex items-center mt-2">
+
+								@if (product.DiscountPercentage > 0)
+								{
+									<MudText Typo="Typo.h6" Class="font-bold text-primary">¥@product.PriceAfterDiscount</MudText>
+									<MudText Typo="Typo.body2" Class="text-gray-500 line-through ml-2">¥@product.OriginalPrice</MudText>
+								}
+								else
+								{
+									<MudText Typo="Typo.h6" Class="font-bold text-primary">¥@product.OriginalPrice</MudText>
+								}
+
+							</div>
+						</MudCardContent>
+					</MudCard>
+				</MudItem>
+			}
+
+		</MudGrid>
+
+		<div class="text-center mt-10">
+			<MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium">
+				加载更多商品 <MudIcon Icon="@Icons.Material.Filled.More" Size="Size.Small" Class="ml-1" />
+			</MudButton>
+		</div>
+	</div>
+
+	<!-- 促销活动区 -->
+	<div class="mb-16">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<!-- 促销横幅1 -->
+			<MudCard Class="gradient-bg text-white h-80">
+				<MudCardContent Class="h-full flex flex-col justify-between">
+					<div>
+						<MudText Typo="Typo.h5" Class="font-bold">限时特惠</MudText>
+						<MudText Typo="Typo.body2">精选商品直降</MudText>
+					</div>
+					<div class="d-flex justify-between items-end">
+						<MudText Typo="Typo.h3" Class="font-bold">75%</MudText>
+						<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Medium">
+							立即抢购
+						</MudButton>
+					</div>
+				</MudCardContent>
+			</MudCard>
+
+			<!-- 促销横幅2 -->
+			<MudCard Class="bg-gray-800 text-white h-80">
+				<MudCardMedia Image="https://picsum.photos/id/1060/800/400" Style="height:100%;" Class="opacity-40" />
+				<MudCardContent Class="h-full flex flex-col justify-between absolute top-0 left-0 right-0 p-6">
+					<div>
+						<MudText Typo="Typo.h5" Class="font-bold">满减优惠</MudText>
+						<MudText Typo="Typo.body2">满300减50，满500减100</MudText>
+					</div>
+					<div class="d-flex justify-between items-end">
+						<MudText Typo="Typo.h3" Class="font-bold">多买多省</MudText>
+						<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Medium">
+							了解详情
+						</MudButton>
+					</div>
+				</MudCardContent>
+			</MudCard>
+		</div>
+	</div>
+
+	<!-- 新品上市区 -->
+	<div class="mb-16">
+		<div class="d-flex justify-between align-items-center mb-8">
+			<MudText Typo="Typo.h4" Class="font-bold">新品上市</MudText>
+			<MudLink Href="/new-arrivals" Class="text-primary flex items-center">
+				查看全部 <MudIcon Icon="@Icons.Material.Filled.ChevronRight" Size="Size.Small" Class="ml-1" />
+			</MudLink>
+		</div>
+
+		<MudCarousel Class="mb-6" ShowControls="true" ShowIndicators="false" Style="height:350px" TData="object">
+
+			@foreach (var product in NewProducts)
+			{
+				<MudCarouselItem>
+					<MudCard Class="h-full">
+						<div class="flex flex-col md:flex-row h-full">
+							<div class="md:w-1/2">
+								<MudCardMedia Image="@product.ImageUrl" Height="350" Class="object-cover" />
+							</div>
+							<div class="md:w-1/2 p-6 flex flex-col justify-center">
+								<MudChip T="string" Color="Color.Primary" Size="Size.Small" Class="mb-2">
+									新品
+								</MudChip>
+								<MudText Typo="Typo.h5" Class="font-bold mb-2">@product.Name</MudText>
+								<div class="flex items-center mt-1 mb-4">
+									<MudRating Value="@product.Rating" MaxValue="5" ReadOnly="true" Size="Size.Small" />
+									<MudText Typo="Typo.caption" Class="text-gray-500 ml-1">(@product.ReviewCount)</MudText>
+								</div>
+								<MudText Typo="Typo.body1" Class="text-gray-600 mb-6">@product.Description</MudText>
+								<div class="flex items-center mb-6">
+									<MudText Typo="Typo.h6" Class="font-bold text-primary mr-4">¥@product.OriginalPrice</MudText>
+									<MudText Typo="Typo.body2" Class="text-gray-500">库存: @product.StockQuantity</MudText>
+								</div>
+								<div class="flex space-x-3">
+									<MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Medium" StartIcon="@Icons.Material.Filled.ShoppingCart">
+										加入购物车
+									</MudButton>
+									<MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Medium">
+										快速查看
+									</MudButton>
+								</div>
+							</div>
+						</div>
+					</MudCard>
+				</MudCarouselItem>
+			}
+
+		</MudCarousel>
+	</div>
+
+	<!-- 用户评价区 -->
+	<div class="mb-16">
+		<MudText Typo="Typo.h4" Class="font-bold text-center mb-10">用户真实评价</MudText>
+
+		<MudGrid class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+			@foreach (var review in UserReviews)
+			{
+				<MudItem xs="6" sm="3">
+					<MudCard Class="h-full" xs="6" sm="3">
+						<MudCardContent Class="p-6">
+							<div class="flex items-center mb-4">
+								<MudAvatar Image="@review.UserAvatar" Size="Size.Large" Class="mr-4" />
+								<div>
+									<MudText Typo="Typo.h6">@review.UserName</MudText>
+									<MudText Typo="Typo.caption" Class="text-gray-500">购买了 @review.ProductName</MudText>
+								</div>
+							</div>
+							<div class="mb-4">
+								<MudRating Value="@review.Rating" MaxValue="5" ReadOnly="true" />
+							</div>
+							<MudText Typo="Typo.body1" Class="text-gray-600">@review.ReviewText</MudText>
+							<MudText Typo="Typo.caption" Class="text-gray-500 mt-4">@review.ReviewDate.ToString("yyyy-MM-dd")</MudText>
+						</MudCardContent>
+					</MudCard>
+				</MudItem>
+			}
+
+		</MudGrid>
+	</div>
+
+	<!-- 品牌展示区 -->
+	<div class="mb-16">
+		<MudText Typo="Typo.h4" Class="font-bold text-center mb-10">合作品牌</MudText>
+
+		<MudCarousel Class="brand-carousel" ShowControls="true" ShowIndicators="false" Style="height:120px" TData="object">
+			<MudCarouselItem>
+				<div class="flex justify-around items-center h-full">
+					<img src="https://picsum.photos/id/101/150/80" alt="品牌1" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/102/150/80" alt="品牌2" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/103/150/80" alt="品牌3" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/104/150/80" alt="品牌4" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/105/150/80" alt="品牌5" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+				</div>
+			</MudCarouselItem>
+			<MudCarouselItem>
+				<div class="flex justify-around items-center h-full">
+					<img src="https://picsum.photos/id/106/150/80" alt="品牌6" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/107/150/80" alt="品牌7" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/108/150/80" alt="品牌8" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/109/150/80" alt="品牌9" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+					<img src="https://picsum.photos/id/110/150/80" alt="品牌10" class="h-12 grayscale hover:grayscale-0 transition duration-300" />
+				</div>
+			</MudCarouselItem>
+		</MudCarousel>
+	</div>
+
+	<!-- 订阅区 -->
+	<div class="gradient-bg rounded-lg p-10 text-white mb-16">
+		<div class="text-center mb-6">
+			<MudText Typo="Typo.h4" Class="font-bold">订阅我们的邮件</MudText>
+			<MudText Typo="Typo.body1" Class="max-w-2xl mx-auto">
+				订阅我们的电子邮件，获取最新产品信息、促销活动和独家优惠。
+			</MudText>
+		</div>
+
+		<MudGrid class="max-w-md mx-auto">
+			<MudTextField T="string" Placeholder="您的邮箱地址"
+						  Variant="Variant.Outlined"
+						  Class="bg-white bg-opacity-20 mb-4"
+						  Color="Color.White"
+						  InputType="InputType.Email" />
+			<MudButton Variant="Variant.Filled" Color="Color.Default" Class="w-full" Size="Size.Medium">
+				立即订阅
+			</MudButton>
+			<MudText Typo="Typo.caption" Class="mt-4 text-white text-opacity-70">
+				我们尊重您的隐私，不会向第三方分享您的信息。
+			</MudText>
+		</MudGrid>
+	</div>
+</MudContainer>
+
+
+@code {
+	// 模拟数据 - 商品分类
+	private List<Category> Categories = new List<Category>
+	{
+		new Category { Id = 1, Name = "服装", ImageUrl = "https://picsum.photos/id/1059/300/300" },
+		new Category { Id = 2, Name = "电子产品", ImageUrl = "https://picsum.photos/id/1/300/300" },
+		new Category { Id = 3, Name = "家居用品", ImageUrl = "https://picsum.photos/id/1060/300/300" },
+		new Category { Id = 4, Name = "美妆护肤", ImageUrl = "https://picsum.photos/id/96/300/300" },
+		new Category { Id = 5, Name = "运动户外", ImageUrl = "https://picsum.photos/id/1062/300/300" },
+		new Category { Id = 6, Name = "食品保健", ImageUrl = "https://picsum.photos/id/292/300/300" }
+	};
+
+	// 模拟数据 - 热门商品
+	private List<Product> PopularProducts = new List<Product>
+	{
+		new Product
+		{
+			Id = 1,
+			Name = "超薄笔记本电脑",
+			ImageUrl = "https://picsum.photos/id/4/300/300",
+			OriginalPrice = 5999,
+			DiscountPercentage = 10,
+			PriceAfterDiscount = 5399,
+			Rating = 4.5,
+			ReviewCount = 128,
+			IsNew = false,
+			StockQuantity = 25
+		},
+		new Product
+		{
+			Id = 2,
+			Name = "智能手表",
+			ImageUrl = "https://picsum.photos/id/111/300/300",
+			OriginalPrice = 1299,
+			DiscountPercentage = 0,
+			PriceAfterDiscount = 1299,
+			Rating = 4.8,
+			ReviewCount = 235,
+			IsNew = true,
+			StockQuantity = 42
+		},
+		new Product
+		{
+			Id = 3,
+			Name = "无线蓝牙耳机",
+			ImageUrl = "https://picsum.photos/id/3/300/300",
+			OriginalPrice = 899,
+			DiscountPercentage = 15,
+			PriceAfterDiscount = 764,
+			Rating = 4.3,
+			ReviewCount = 96,
+			IsNew = false,
+			StockQuantity = 50
+		},
+		new Product
+		{
+			Id = 4,
+			Name = "时尚连衣裙",
+			ImageUrl = "https://picsum.photos/id/65/300/300",
+			OriginalPrice = 399,
+			DiscountPercentage = 20,
+			PriceAfterDiscount = 319,
+			Rating = 4.6,
+			ReviewCount = 156,
+			IsNew = false,
+			StockQuantity = 18
+		},
+		new Product
+		{
+			Id = 5,
+			Name = "高级护肤品套装",
+			ImageUrl = "https://picsum.photos/id/96/300/300",
+			OriginalPrice = 1199,
+			DiscountPercentage = 25,
+			PriceAfterDiscount = 899,
+			Rating = 4.7,
+			ReviewCount = 112,
+			IsNew = true,
+			StockQuantity = 12
+		},
+		new Product
+		{
+			Id = 6,
+			Name = "运动健身器材",
+			ImageUrl = "https://picsum.photos/id/1062/300/300",
+			OriginalPrice = 799,
+			DiscountPercentage = 0,
+			PriceAfterDiscount = 799,
+			Rating = 4.2,
+			ReviewCount = 87,
+			IsNew = false,
+			StockQuantity = 8
+		},
+		new Product
+		{
+			Id = 7,
+			Name = "智能家居套装",
+			ImageUrl = "https://picsum.photos/id/160/300/300",
+			OriginalPrice = 1499,
+			DiscountPercentage = 10,
+			PriceAfterDiscount = 1349,
+			Rating = 4.4,
+			ReviewCount = 76,
+			IsNew = true,
+			StockQuantity = 15
+		},
+		new Product
+		{
+			Id = 8,
+			Name = "男士休闲鞋",
+			ImageUrl = "https://picsum.photos/id/103/300/300",
+			OriginalPrice = 599,
+			DiscountPercentage = 0,
+			PriceAfterDiscount = 599,
+			Rating = 4.1,
+			ReviewCount = 103,
+			IsNew = false,
+			StockQuantity = 30
+		},
+		new Product
+		{
+			Id = 9,
+			Name = "儿童玩具套装",
+			ImageUrl = "https://picsum.photos/id/26/300/300",
+			OriginalPrice = 299,
+			DiscountPercentage = 30,
+			PriceAfterDiscount = 209,
+			Rating = 4.9,
+			ReviewCount = 165,
+			IsNew = false,
+			StockQuantity = 22
+		},
+		new Product
+		{
+			Id = 10,
+			Name = "咖啡咖啡机",
+			ImageUrl = "https://picsum.photos/id/431/300/300",
+			OriginalPrice = 1599,
+			DiscountPercentage = 5,
+			PriceAfterDiscount = 1519,
+			Rating = 4.6,
+			ReviewCount = 64,
+			IsNew = true,
+			StockQuantity = 7
+		}
+	};
+
+	// 模拟数据 - 新品上市
+	private List<Product> NewProducts = new List<Product>
+	{
+		new Product
+		{
+			Id = 11,
+			Name = "专业相机套装",
+			ImageUrl = "https://picsum.photos/id/119/500/500",
+			OriginalPrice = 8999,
+			DiscountPercentage = 0,
+			PriceAfterDiscount = 8999,
+			Rating = 4.8,
+			ReviewCount = 36,
+			IsNew = true,
+			StockQuantity = 9,
+			Description = "专业级单反相机，配备多种镜头和配件，适合摄影爱好者和专业摄影师使用。"
+		},
+		new Product
+		{
+			Id = 12,
+			Name = "高端音响系统",
+			ImageUrl = "https://picsum.photos/id/3/500/500",
+			OriginalPrice = 6999,
+			DiscountPercentage = 0,
+			PriceAfterDiscount = 6999,
+			Rating = 4.9,
+			ReviewCount = 24,
+			IsNew = true,
+			StockQuantity = 5,
+			Description = "高保真音响系统，支持多种连接方式，为您带来沉浸式音乐体验。"
+		},
+		new Product
+		{
+			Id = 13,
+			Name = "智能空气净化器",
+			ImageUrl = "https://picsum.photos/id/1060/500/500",
+			OriginalPrice = 2499,
+			DiscountPercentage = 0,
+			PriceAfterDiscount = 2499,
+			Rating = 4.7,
+			ReviewCount = 42,
+			IsNew = true,
+			StockQuantity = 14,
+			Description = "高效过滤空气污染物，智能控制，为您和家人提供健康的室内空气环境。"
+		}
+	};
+
+	// 模拟数据 - 用户评价
+	private List<UserReview> UserReviews = new List<UserReview>
+	{
+		new UserReview
+		{
+			Id = 1,
+			UserName = "张女士",
+			UserAvatar = "https://picsum.photos/id/64/100/100",
+			ProductName = "超薄笔记本电脑",
+			Rating = 5,
+			ReviewText = "这台笔记本电脑非常轻薄，性能也很出色，电池续航时间长，非常适合我这种经常出差的人使用。",
+			ReviewDate = new DateTime(2023, 5, 15)
+		},
+		new UserReview
+		{
+			Id = 2,
+			UserName = "李先生",
+			UserAvatar = "https://picsum.photos/id/91/100/100",
+			ProductName = "智能手表",
+			Rating = 4,
+			ReviewText = "功能很丰富，可以监测健康数据，接收通知，电池续航也不错。唯一的缺点是价格有点高。",
+			ReviewDate = new DateTime(2023, 6, 2)
+		},
+		new UserReview
+		{
+			Id = 3,
+			UserName = "王小姐",
+			UserAvatar = "https://picsum.photos/id/26/100/100",
+			ProductName = "时尚连衣裙",
+			Rating = 5,
+			ReviewText = "裙子的质量很好，面料舒适，款式时尚，穿上很显气质。尺码也很标准，非常满意！",
+			ReviewDate = new DateTime(2023, 5, 28)
+		}
+	};
+
+	// 数据模型
+	public class Category
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string ImageUrl { get; set; }
+	}
+
+	public class Product
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+		public string ImageUrl { get; set; }
+		public decimal OriginalPrice { get; set; }
+		public int DiscountPercentage { get; set; }
+		public decimal PriceAfterDiscount { get; set; }
+		public double Rating { get; set; }
+		public int ReviewCount { get; set; }
+		public bool IsNew { get; set; }
+		public int StockQuantity { get; set; }
+		public string Description { get; set; }
+	}
+
+	public class UserReview
+	{
+		public int Id { get; set; }
+		public string UserName { get; set; }
+		public string UserAvatar { get; set; }
+		public string ProductName { get; set; }
+		public int Rating { get; set; }
+		public string ReviewText { get; set; }
+		public DateTime ReviewDate { get; set; }
+	}
+}

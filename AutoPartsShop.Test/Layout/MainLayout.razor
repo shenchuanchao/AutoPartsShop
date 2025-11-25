@@ -1,3 +1,175 @@
 ﻿@inherits LayoutComponentBase
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
 
-@Body
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+	<MudAppBar Elevation="1" Class="bg-white" Fixed="true">
+		<MudContainer MaxWidth="MaxWidth.Large">
+			<div class="d-flex align-items-center justify-between w-100">
+				<!-- Logo -->
+				<MudLink Href="/" Class="d-flex align-items-center">
+					<MudText Typo="Typo.h5" Class="font-bold text-primary">Luxury<span class="text-secondary">Shop</span></MudText>
+				</MudLink>
+
+				<!-- 桌面端导航 -->
+				<MudHidden SmDown>
+					<MudNavMenu Class="d-flex align-items-center">
+						<MudNavLink Href="/" Class="px-4 text-dark font-medium">首页</MudNavLink>
+						<MudNavLink Href="/categories" Class="px-4 text-dark font-medium">商品分类</MudNavLink>
+						<MudNavLink Href="/new-arrivals" Class="px-4 text-dark font-medium">新品上市</MudNavLink>
+						<MudNavLink Href="/best-sellers" Class="px-4 text-dark font-medium">热卖榜单</MudNavLink>
+						<MudNavLink Href="/about" Class="px-4 text-dark font-medium">关于我们</MudNavLink>
+					</MudNavMenu>
+				</MudHidden>
+
+				<!-- 搜索栏 -->
+				<div class="d-flex align-items-center flex-grow-1 mx-6">
+					<MudTextField @bind-Value="Search"
+								  Placeholder="搜索商品..."
+								  Variant="Variant.Outlined"
+								  Class="flex-grow-1"
+								  Adornment="Adornment.End"
+								  AdornmentIcon="@Icons.Material.Filled.Search"
+								  IconSize="Size.Medium"
+								  Style="--mud-input-outlined-border-radius: 20px;" />
+				</div>
+
+				<!-- 用户功能区 -->
+				<div class="d-flex align-items-center">
+					<MudTooltip Text="收藏夹">
+						<MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Color="Color.Default" Class="mr-2" />
+					</MudTooltip>
+					<MudTooltip Text="购物车">
+						<MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Class="mr-2">
+							<span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+						</MudIconButton>
+					</MudTooltip>
+
+					<MudMenu>
+						<ActivatorContent>
+							<MudIconButton Icon="@Icons.Material.Filled.PersonOutline" Color="Color.Default" Class="mr-2"></MudIconButton>
+						</ActivatorContent>
+						<ChildContent>
+							<MudMenuItem>登录</MudMenuItem>
+							<MudMenuItem>注册</MudMenuItem>
+							<MudMenuItem>个人中心</MudMenuItem>
+							<MudMenuItem>我的订单</MudMenuItem>
+						</ChildContent>
+					</MudMenu>
+
+					<!-- 移动端菜单按钮 -->
+					<MudHidden MdUp>
+						<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Default" Class="ml-2" />
+					</MudHidden>
+				</div>
+			</div>
+		</MudContainer>
+	</MudAppBar>
+	<!-- 移动端侧边栏导航 -->
+	<MudDrawer Open="false" ClipMode="DrawerClipMode.Always" Anchor="Anchor.Left" Elevation="2">
+		<MudDrawerHeader>
+			<MudText Typo="Typo.h6">菜单</MudText>
+		</MudDrawerHeader>
+		<MudNavMenu>
+			<MudNavLink Href="/">首页</MudNavLink>
+			<MudNavLink Href="/categories">商品分类</MudNavLink>
+			<MudNavLink Href="/new-arrivals">新品上市</MudNavLink>
+			<MudNavLink Href="/best-sellers">热卖榜单</MudNavLink>
+			<MudNavLink Href="/about">关于我们</MudNavLink>
+			<MudDivider Class="my-2" />
+			<MudNavLink Href="/login">登录/注册</MudNavLink>
+			<MudNavLink Href="/profile">个人中心</MudNavLink>
+			<MudNavLink Href="/cart">购物车</MudNavLink>
+		</MudNavMenu>
+	</MudDrawer>
+	<!-- 主要内容区域 -->
+	<MudMainContent Class="flex-grow pt-20">
+		@Body
+	</MudMainContent>
+
+	  <!-- 页脚 -->
+    <footer Class="bg-dark text-white py-10">
+		<MudContainer MaxWidth="MaxWidth.Large">
+			<MudGrid class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- 公司信息 -->
+                <div>
+                    <MudText Typo="Typo.h6" Class="mb-4">LuxuryShop</MudText>
+                    <MudText Class="text-gray-400 mb-4">提供高品质商品和卓越购物体验，让您的生活更加美好。</MudText>
+                    <div class="d-flex space-x-4">
+                        <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Inherit" Size="Size.Small" />
+                        <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Color="Color.Inherit" Size="Size.Small" />
+                        <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Inherit" Size="Size.Small" />
+                        <MudIconButton Icon="@Icons.Custom.Brands.YouTube" Color="Color.Inherit" Size="Size.Small" />
+                    </div>
+                </div>
+                
+                <!-- 快速链接 -->
+                <div>
+                    <MudText Typo="Typo.h6" Class="mb-4">快速链接</MudText>
+                    <MudList T="string">
+                        <MudListItem><MudLink Href="/about" Class="text-gray-400">关于我们</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/contact" Class="text-gray-400">联系我们</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/faq" Class="text-gray-400">常见问题</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/terms" Class="text-gray-400">使用条款</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/privacy" Class="text-gray-400">隐私政策</MudLink></MudListItem>
+                    </MudList>
+                </div>
+                
+                <!-- 商品分类 -->
+                <div>
+                    <MudText Typo="Typo.h6" Class="mb-4">商品分类</MudText>
+					<MudList T="string">
+                        <MudListItem><MudLink Href="/category/clothing" Class="text-gray-400">服装</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/category/electronics" Class="text-gray-400">电子产品</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/category/home" Class="text-gray-400">家居用品</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/category/beauty" Class="text-gray-400">美妆护肤</MudLink></MudListItem>
+                        <MudListItem><MudLink Href="/category/sports" Class="text-gray-400">运动户外</MudLink></MudListItem>
+                    </MudList>
+                </div>
+                
+                <!-- 联系信息 -->
+                <div>
+                    <MudText Typo="Typo.h6" Class="mb-4">联系我们</MudText>
+					<MudList T="string">
+                        <MudListItem Class="text-gray-400">
+                            <MudIcon Icon="@Icons.Material.Filled.LocationOn" Class="mr-2" />
+                            北京市朝阳区建国路88号
+                        </MudListItem>
+                        <MudListItem Class="text-gray-400">
+                            <MudIcon Icon="@Icons.Material.Filled.Phone" Class="mr-2" />
+                            400-123-4567
+                        </MudListItem>
+                        <MudListItem Class="text-gray-400">
+                            <MudIcon Icon="@Icons.Material.Filled.Email" Class="mr-2" />
+                            service@luxuryshop.com
+                        </MudListItem>
+                        <MudListItem Class="text-gray-400">
+                            <MudIcon Icon="@Icons.Material.Filled.AccessTime" Class="mr-2" />
+                            周一至周日 9:00-21:00
+                        </MudListItem>
+                    </MudList>
+                </div>
+            </MudGrid>
+            
+            <MudDivider Class="my-6 bg-gray-700" />
+            
+            <!-- 版权信息 -->
+            <div class="d-flex flex-column md:flex-row justify-between align-items-center">
+                <MudText Class="text-gray-500">© 2025 LuxuryShop. 保留所有权利。</MudText>
+                <div class="d-flex space-x-4 mt-4 md:mt-0">
+                    <MudIconButton Icon="@Icons.Material.Filled.Payment" Color="Color.Inherit" Size="Size.Small" />
+                </div>
+            </div>
+        </MudContainer>
+    </footer>
+
+</MudLayout>
+
+
+@code {
+	private string Search { get; set; }
+}
