@@ -1,0 +1,9 @@
+﻿body {
+}
+
+
+@media (min-width: 600px) {
+    .mud-container--gutters {
+        margin: 24px 0 0;
+    }
+}

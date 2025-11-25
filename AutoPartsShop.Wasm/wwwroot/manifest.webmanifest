@@ -1,6 +1,6 @@
 {
-    "name": "AutoPartsShop.Wasm",
-    "short_name": "AutoPartsShop.Wasm",
+    "name": "新鑫达汽配商城",
+    "short_name": "新鑫达",
     "id": "./",
     "start_url": "./",
     "display": "standalone",

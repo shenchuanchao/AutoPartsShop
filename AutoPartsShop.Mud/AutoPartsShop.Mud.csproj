@@ -22,4 +22,8 @@
     <ProjectReference Include="..\AutoPartsShop.Identity\AutoPartsShop.Identity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Products\" />
+  </ItemGroup>
+
 </Project>
