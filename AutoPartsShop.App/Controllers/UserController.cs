@@ -38,6 +38,8 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             PhoneNumberConfirmed = x.PhoneNumberConfirmed,
             FullName = x.FullName,
             UserName = x.UserName,
+            CompanyName=x.CompanyName,
+            Photo=x.Photo
         });
 
         foreach (var user in users)
@@ -79,6 +81,8 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
             PhoneNumberConfirmed = user.PhoneNumberConfirmed,
             UserName = user.UserName,
             FullName = user.FullName,
+            CompanyName = user.CompanyName,
+            Photo = user.Photo,
             Roles = [.. (await _userManager.GetRolesAsync(user))],
         });
     }
@@ -126,6 +130,8 @@ public class UserController(UserManager<ApplicationUser> userManager, ILogger<Us
         user.UserName = update.UserName;
         user.FullName = update.FullName;
         user.PhoneNumber = update.PhoneNumber;
+        user.CompanyName = update.CompanyName;
+        user.Photo = update.Photo;
 
         await _userManager.UpdateAsync(user);
 

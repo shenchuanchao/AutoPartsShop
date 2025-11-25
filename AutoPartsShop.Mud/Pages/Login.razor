@@ -15,8 +15,8 @@
         <DataAnnotationsValidator />
         <MudCard>
             <MudCardContent>
-                <MudTextField @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" Label="Email" />
-                <MudTextField @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" Label="Password" InputType="InputType.Password" />
+                <MudTextField @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" Label="UserName" />
+                <MudTextField @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" Label="Password" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
                 <MudCheckBox @bind-Value="loginModel.RememberMe" Label="RememberMe"></MudCheckBox>
                 </MudCardContent>
             <MudCardActions>
@@ -33,6 +33,25 @@
 
 @code {
     private LoginRequest loginModel = new();
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
 
     private async Task OnValidSubmit()
     {

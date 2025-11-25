@@ -1,11 +1,11 @@
 ﻿<MudNavMenu>
 	<MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
 	<AuthorizeView>
-		<MudNavLink Href="/user" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.People">User</MudNavLink>
-		<MudNavLink Href="/role" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBox">Role</MudNavLink>
-
+		
 	</AuthorizeView>
 	<AuthorizeView Roles="Admin">
+		<MudNavLink Href="/user" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.People">User</MudNavLink>
+		<MudNavLink Href="/role" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AccountBox">Role</MudNavLink>
 			</AuthorizeView>
 	<AuthorizeView>
 		<Authorized>

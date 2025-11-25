@@ -30,9 +30,10 @@ else
             <DialogContent>
                 <MudNumericField @bind-Value="user.Id" For="@(() => user.Id)" Label="User Id" ReadOnly="true" HideSpinButtons="true" />
                 <MudTextField @bind-Value="user.Email" For="@(() => user.Email)" Label="User Name" ReadOnly="true" />
-                <MudTextField @bind-Value="user.PhoneNumber" For="@(() => user.PhoneNumber)" Label="Phone Number" ReadOnly="true" />
-                <MudTextField @bind-Value="updateUser.UserName" For="@(() => updateUser.UserName)" Label="First Name" />
-                <MudTextField @bind-Value="updateUser.FullName" For="@(() => updateUser.FullName)" Label="Last Name" />
+                <MudTextField @bind-Value="user.PhoneNumber" For="@(() => user.PhoneNumber)" Label="Phone Number" />
+                <MudTextField @bind-Value="updateUser.UserName" For="@(() => updateUser.UserName)" Label="User Name" />
+                <MudTextField @bind-Value="updateUser.FullName" For="@(() => updateUser.FullName)" Label="Full Name" />
+                <MudTextField @bind-Value="updateUser.CompanyName" For="@(() => updateUser.CompanyName)" Label="Company Name" />
                 <MudFileUpload T="IBrowserFile" FilesChanged="@(async args => updateUser.Photo = await UploadImageAsync(args))" Accept=".png,.jpg,.jpeg">
                     <ActivatorContent>
                         <MudIconButton Color="Color.Info"
@@ -93,6 +94,9 @@ else
                     UserName = user?.UserName,
                     FullName = user?.FullName,
                     PhoneNumber = user?.PhoneNumber,
+                    CompanyName = user?.CompanyName,
+                    Photo=user?.Photo,
+
                 };
         }
         catch (Exception ex)

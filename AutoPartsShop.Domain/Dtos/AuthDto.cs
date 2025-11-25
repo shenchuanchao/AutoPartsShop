@@ -35,7 +35,7 @@ namespace AutoPartsShop.Domain.Dtos
     public class LoginRequest
     {
         [Required]
-        [EmailAddress]
+        //[EmailAddress]
         public string Email { get; set; } = string.Empty;
         public string? UserName { get; set; }
         [Required]

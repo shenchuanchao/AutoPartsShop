@@ -12,11 +12,11 @@
         </TitleContent>
         <DialogContent>
             <MudTextField @bind-Value="registerModel.Email" For="@(() => registerModel.Email)" Label="Email" />
-            <MudTextField @bind-Value="registerModel.Password" For="@(() => registerModel.Password)" Label="Password" InputType="InputType.Password" />
+            <MudTextField @bind-Value="registerModel.Password" For="@(() => registerModel.Password)" Label="Password" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" />
             <MudTextField @bind-Value="registerModel.ConfirmPassword" For="@(() => registerModel.ConfirmPassword)" Label="Confirm Password" InputType="InputType.Password" />
-            <MudTextField @bind-Value="registerModel.UserName" For="@(() => registerModel.UserName)" Label="First Name" />
-            <MudTextField @bind-Value="registerModel.FullName" For="@(() => registerModel.FullName)" Label="Last Name" />
-            <MudTextField @bind-Value="registerModel.PhoneNumber" For="@(() => registerModel.PhoneNumber)" Label="Title" />
+            <MudTextField @bind-Value="registerModel.UserName" For="@(() => registerModel.UserName)" Label="User Name" />
+            <MudTextField @bind-Value="registerModel.FullName" For="@(() => registerModel.FullName)" Label="Full Name" />
+            <MudTextField @bind-Value="registerModel.PhoneNumber" For="@(() => registerModel.PhoneNumber)" Label="PhoneNumber" />
             <MudFileUpload T="IBrowserFile" FilesChanged="@(async args => registerModel.Photo = await UploadImageAsync(args))" Accept=".png,.jpg,.jpeg">
                 <ActivatorContent>
                     <MudIconButton Color="Color.Info"
@@ -112,5 +112,25 @@
         }
 
         return null;
+    }
+
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
     }
 }
